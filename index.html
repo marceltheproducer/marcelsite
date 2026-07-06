@@ -41,7 +41,6 @@
     "jobTitle": "Film Producer",
     "description": "GLAAD Media and Spirit Award-nominated independent film producer based in Los Angeles, specializing in BIPOC, LGBTQIA+, and underrepresented storytelling.",
     "url": "https://marcelperez.co/",
-    "email": "marcel@marcelperez.co",
     "image": "https://marcelperez.co/images/headshot.jpg",
     "address": { "@type": "PostalAddress", "addressLocality": "Los Angeles", "addressRegion": "CA", "addressCountry": "US" },
     "sameAs": [
@@ -51,6 +50,7 @@
     ],
     "knowsAbout": ["Film Production", "Independent Film", "Documentary Filmmaking", "LGBTQIA+ Cinema", "BIPOC Storytelling", "Feature Film Production", "Short Film Production"],
     "award": [
+      "WScripted Cannes Screenplay List 2026",
       "GLAAD Media Award Nominee",
       "Film Independent Spirit Award Nominee",
       "BlackStar Pitch Winner 2022",
@@ -70,11 +70,20 @@
   </script>
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231e150c'/%3E%3Cg fill='none' stroke='%23e6b45c' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M11 9h10l3 4H8z'/%3E%3Cpath d='M10 13h12l-1.6 11h-8.8z'/%3E%3Cpath d='M22 14q4 0 4 4 0 4-4 4'/%3E%3C/g%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,900&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="preload" href="fonts/fraunces-900.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/fraunces-400.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:300;font-display:swap;src:url(fonts/fraunces-300.woff2) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/fraunces-400.woff2) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/fraunces-600.woff2) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:900;font-display:swap;src:url(fonts/fraunces-900.woff2) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:300;font-display:swap;src:url(fonts/fraunces-300-italic.woff2) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:400;font-display:swap;src:url(fonts/fraunces-400-italic.woff2) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:900;font-display:swap;src:url(fonts/fraunces-900-italic.woff2) format('woff2')}
+@font-face{font-family:'OpenDyslexic';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/opendyslexic-400.woff2) format('woff2')}
+@font-face{font-family:'OpenDyslexic';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/opendyslexic-700.woff2) format('woff2')}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{
     --paper:#e9dcc0; --paper2:#f3e9d3; --paper3:#f8f1e1;
     --ink:#241a11; --ink2:#6a5940; --faint:#a08c6c;
@@ -253,6 +262,24 @@
     .press-head{font-size:1rem}
   }
 
+  /* Utility toggles (language + dyslexia font) */
+  .util{position:fixed;right:1rem;bottom:1rem;z-index:70;display:flex;gap:.5rem}
+  .util-btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.06em;min-width:38px;height:38px;padding:0 .7rem;border-radius:999px;border:1px solid var(--line2);background:var(--paper3);color:var(--ochre2);cursor:pointer;box-shadow:0 8px 24px -10px rgba(60,40,20,.5);transition:background .2s,border-color .2s,color .2s}
+  .util-btn:hover{border-color:var(--ochre);background:var(--ochre-soft)}
+  .util-btn:focus-visible{outline:2px solid var(--ochre);outline-offset:2px}
+  .util-btn[aria-pressed="true"]{background:var(--ink);color:var(--paper2);border-color:var(--ink)}
+  #dysBtn{font-family:var(--serif);font-size:1rem;line-height:1}
+  @media(max-width:520px){.util{right:.7rem;bottom:.7rem}}
+
+  .form-status{font-size:.86rem;line-height:1.5;color:var(--paper2);margin:.1rem 0 0}
+  .form-status.ok{color:#8fd08a}
+  .form-status.err{color:#eaa06a}
+
+  /* Dyslexia-friendly font mode */
+  html.dys{--serif:"OpenDyslexic","Comic Sans MS",sans-serif;--sans:"OpenDyslexic","Comic Sans MS",sans-serif}
+  html.dys body{letter-spacing:.01em;word-spacing:.06em;line-height:1.85}
+  html.dys .mega{white-space:normal;letter-spacing:0;font-size:clamp(2.4rem,8vw,5.5rem)}
+
   [data-reveal]{opacity:0;transform:translateY(20px);transition:opacity .8s,transform .8s}
   [data-reveal].in{opacity:1;transform:none}
   .seq>*{opacity:0;transform:translateY(18px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
@@ -291,6 +318,11 @@
   </g>
 </svg>
 
+<div class="util" role="group" aria-label="Site options">
+  <button class="util-btn" id="langBtn" type="button" aria-pressed="false" title="Ver en español">ES</button>
+  <button class="util-btn" id="dysBtn" type="button" aria-pressed="false" title="Dyslexia-friendly font">Aa</button>
+</div>
+
 <nav id="nav">
   <a href="#hero" class="logo"><span class="gm-nav"><svg class="greca" id="navpot" viewBox="6 0 130 118" width="100%" height="100%" stroke-width="3" aria-hidden="true">
   <clipPath id="nav-boiler"><path d="M35 68 L33 104 L40 110 L64 110 L71 104 L69 68 Z"/></clipPath>
@@ -316,20 +348,20 @@
   </g>
 </svg></span> Marcel <span>Pérez</span></a>
   <ul class="nav-links">
-    <li class="nh"><a href="#dev">Development</a></li>
-    <li><a href="#work">Work</a></li>
-    <li class="nh"><a href="#story">Story</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li class="nh"><a href="#dev" data-t="nav_dev">Development</a></li>
+    <li><a href="#work" data-t="nav_work">Work</a></li>
+    <li class="nh"><a href="#story" data-t="nav_story">Story</a></li>
+    <li><a href="#contact" data-t="nav_contact">Contact</a></li>
   </ul>
 </nav>
 
 <main>
   <header id="hero">
     <div class="hero-main seq">
-      <p class="hola">Hola, I'm</p>
+      <p class="hola" data-t="hola">Hola, I'm</p>
       <h1 class="mega">Marcel <span class="p">Pérez</span></h1>
-      <p class="slugline">A Cuban-Peruvian film producer telling stories from the margins that are epic, strange, funny, and a little monstrous.</p>
-      <p class="flavor">Miami raised, LA based. <b>Improviser</b> at UCB, <b>podcaster</b>, maker of a mean cafecito. <span class="flags"><svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Cuba"><rect width="30" height="20" fill="#fff"/><rect width="30" height="4" y="0" fill="#0b429a"/><rect width="30" height="4" y="8" fill="#0b429a"/><rect width="30" height="4" y="16" fill="#0b429a"/><path d="M0 0 L0 20 L13 10 Z" fill="#cb1f2b"/><g transform="translate(4.7,10)" fill="#fff"><path d="M0 -3 L0.9 -0.9 L2.9 -0.9 L1.2 0.5 L1.8 2.5 L0 1.2 L-1.8 2.5 L-1.2 0.5 L-2.9 -0.9 L-0.9 -0.9 Z"/></g></svg><svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Peru"><rect width="30" height="20" fill="#fff"/><rect width="10" height="20" x="0" fill="#d4132a"/><rect width="10" height="20" x="20" fill="#d4132a"/></svg></span></p>
+      <p class="slugline" data-t="slug">A Cuban-Peruvian film producer telling stories from the margins that are epic, strange, funny, and a little monstrous.</p>
+      <p class="flavor"><span data-t="flavor">Miami raised, LA based. <b>Improviser</b> at UCB, <b>podcaster</b>, maker of a mean cafecito.</span> <span class="flags"><svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Cuba"><rect width="30" height="20" fill="#fff"/><rect width="30" height="4" y="0" fill="#0b429a"/><rect width="30" height="4" y="8" fill="#0b429a"/><rect width="30" height="4" y="16" fill="#0b429a"/><path d="M0 0 L0 20 L13 10 Z" fill="#cb1f2b"/><g transform="translate(4.7,10)" fill="#fff"><path d="M0 -3 L0.9 -0.9 L2.9 -0.9 L1.2 0.5 L1.8 2.5 L0 1.2 L-1.8 2.5 L-1.2 0.5 L-2.9 -0.9 L-0.9 -0.9 Z"/></g></svg><svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Peru"><rect width="30" height="20" fill="#fff"/><rect width="10" height="20" x="0" fill="#d4132a"/><rect width="10" height="20" x="20" fill="#d4132a"/></svg></span></p>
       <div class="creds">
         <a class="cred" href="https://deadline.com/2020/11/la-leyenda-negra-hbo-premiere-date-trailer-1234612366/" target="_blank" rel="noopener">Sundance 2020</a>
         <a class="cred" href="https://glaad.org/mediaawards/32/nominees/" target="_blank" rel="noopener">GLAAD Nominee</a>
@@ -337,16 +369,16 @@
         <a class="cred" href="https://deadline.com/2025/10/pga-create-fellows-2025-unveiled-exclusive-1236596575/" target="_blank" rel="noopener">PGA Create Fellow 2025</a>
       </div>
       <div class="hero-cta-row">
-        <a href="#dev" class="btn btn-solid">Meet my new film</a>
-        <a href="#work" class="textlink">See the work ↓</a>
+        <a href="#dev" class="btn btn-solid" data-t="cta1">Meet my new film</a>
+        <a href="#work" class="textlink" data-t="cta2">See the work ↓</a>
       </div>
     </div>
   </header>
 
   <div class="filmstrip">
     <div class="strip-head">
-      <p>The Filmography · hover to explore</p>
-      <a href="#work">All work →</a>
+      <p data-t="strip_p">The Filmography · hover to explore</p>
+      <a href="#work" data-t="strip_a">All work →</a>
     </div>
     <div class="band"><div class="band-track"><a class="bp" href="https://watch.plex.tv/movie/la-leyenda-negra" target="_blank" rel="noopener">
     <img src="images/la-leyenda-negra.jpg" alt="La Leyenda Negra poster" loading="lazy" style="object-position:center center">
@@ -420,21 +452,22 @@
     </g>
   </g>
 </svg></div>
-      <p class="m-label">Why I make films</p>
-      <p class="m-quote">I grew up in Miami, where you come of age loud, sweaty, and surrounded by people who treat coffee like a love language. I make films to prove that stories from the margins can be <em>epic, strange, funny,</em> and a little monstrous.</p>
+      <p class="m-label" data-t="m_label">Why I make films</p>
+      <p class="m-quote" data-t="m_quote">I grew up in Miami, where you come of age loud, sweaty, and surrounded by people who treat coffee like a love language. I make films to prove that stories from the margins can be <em>epic, strange, funny,</em> and a little monstrous.</p>
       <p class="m-sign">Con cariño, Marcel</p>
     </div>
   </div>
 
   <section id="dev">
-    <p class="label" data-reveal>Now in Development</p>
-    <h2 class="s-title" data-reveal>The next one is looking for <em>its people.</em></h2>
+    <p class="label" data-reveal data-t="dev_label">Now in Development</p>
+    <h2 class="s-title" data-reveal data-t="dev_title2">The next one is looking for <em>its people.</em></h2>
     <div class="dev-card" data-reveal>
-      <p class="dev-flag"><span class="dev-dot"></span>Feature · Seeking Co-Producers &amp; Financing</p>
+      <p class="dev-flag"><span class="dev-dot"></span><span data-t="dev_flag">Feature · Seeking Co-Producers &amp; Financing</span></p>
       <h3 class="dev-title">The Girl who Cried Wolf</h3>
-      <p class="dev-log">Convinced her alcoholic mother is turning into a werewolf, 6-year-old Bee races to find a "cure" before the full moon, blurring fantasy and reality in a desperate bid to save her.</p>
+      <p class="dev-log" data-t="dev_log">Convinced her alcoholic mother is turning into a werewolf, 6-year-old Bee races to find a "cure" before the full moon, blurring fantasy and reality in a desperate bid to save her.</p>
       <div class="dev-meta">
         <ul class="accolades">
+          <li><b>Cannes Screenplay List 2026</b></li>
           <li><b>PGA Create Fellow 2025</b></li>
           <li>Nashville FF · Pitch Finalist</li>
           <li>Nashville FF · Screenplay Finalist</li>
@@ -443,55 +476,55 @@
           <li>Micro Grants 2024 · Finalist</li>
         </ul>
         <div class="dev-ask">
-          <p>Want the deck or a conversation?<br><b>Let's talk.</b></p>
-          <a href="#contact" class="btn btn-solid">Request the deck</a>
+          <p data-t="dev_ask">Want the deck or a conversation?<br><b>Let's talk.</b></p>
+          <a href="#contact" class="btn btn-solid" data-t="dev_btn">Request the deck</a>
         </div>
       </div>
     </div>
   </section>
 
   <section id="work">
-    <p class="label" data-reveal>Selected Work</p>
-    <h2 class="s-title work-title" data-reveal>Stories that <em>demanded to get made.</em></h2>
+    <p class="label" data-reveal data-t="work_label">Selected Work</p>
+    <h2 class="s-title work-title" data-reveal data-t="work_title">Stories that <em>demanded to get made.</em></h2>
     <div class="films" data-reveal>
       <a class="film" href="https://watch.plex.tv/movie/la-leyenda-negra" target="_blank" rel="noopener">
-        <div><span class="film-cat">Feature · 2020 · HBO Max</span><div class="film-name">La Leyenda Negra</div><p class="film-fest"><b>Sundance 2020</b> · OutFest LA · BFI Flare · GLAAD + Spirit Award Nominee</p></div>
-        <span class="film-link">Watch on Plex ↗</span>
+        <div><span class="film-cat"><span data-t="cat_feat">Feature</span> · 2020 · HBO Max</span><div class="film-name">La Leyenda Negra</div><p class="film-fest"><b>Sundance 2020</b> · OutFest LA · BFI Flare · GLAAD + Spirit Award Nominee</p></div>
+        <span class="film-link" data-t="w_plex">Watch on Plex ↗</span>
       </a>
       <a class="film" href="https://www.amazon.com/Way-You-Look-Tonight/dp/B0GJFRB5G9/ref=sr_1_2" target="_blank" rel="noopener">
-        <div><span class="film-cat">Feature · 2019</span><div class="film-name">The Way You Look Tonight</div><p class="film-fest">Gravitas Ventures · Cinequest Nominee · Atlanta FF Peach Award</p></div>
-        <span class="film-link">Watch on Amazon ↗</span>
+        <div><span class="film-cat"><span data-t="cat_feat">Feature</span> · 2019</span><div class="film-name">The Way You Look Tonight</div><p class="film-fest">Gravitas Ventures · Cinequest Nominee · Atlanta FF Peach Award</p></div>
+        <span class="film-link" data-t="w_amazon">Watch on Amazon ↗</span>
       </a>
       <a class="film" href="https://www.blackstarfest.org/news/press/11th-blackstar-film-festival-award-winners/" target="_blank" rel="noopener">
-        <div><span class="film-cat">Short Doc · 2025</span><div class="film-name">Piñata Prayers</div><p class="film-fest"><b>BlackStar Pitch Winner</b> · Warner Bros. Discovery OneFifty</p></div>
-        <span class="film-link">BlackStar Award ↗</span>
+        <div><span class="film-cat"><span data-t="cat_doc">Short Doc</span> · 2025</span><div class="film-name">Piñata Prayers</div><p class="film-fest"><b>BlackStar Pitch Winner</b> · Warner Bros. Discovery OneFifty</p></div>
+        <span class="film-link" data-t="w_blackstar">BlackStar Award ↗</span>
       </a>
       <a class="film" href="https://www.imdb.com/title/tt33932947/" target="_blank" rel="noopener">
-        <div><span class="film-cat">Short · 2024</span><div class="film-name">Mal Culo</div><p class="film-fest"><b>Austin Film Festival</b> · World Premiere</p></div>
-        <span class="film-link">View on IMDb ↗</span>
+        <div><span class="film-cat"><span data-t="cat_short">Short</span> · 2024</span><div class="film-name">Mal Culo</div><p class="film-fest"><b>Austin Film Festival</b> · World Premiere</p></div>
+        <span class="film-link" data-t="w_imdb">View on IMDb ↗</span>
       </a>
       <a class="film" href="https://www.imdb.com/title/tt27453715/" target="_blank" rel="noopener">
-        <div><span class="film-cat">Short · 2022</span><div class="film-name">Inés Unfortunately</div><p class="film-fest">OutFest LA · Tallgrass FF · Austin FF · NALIP</p></div>
-        <span class="film-link">View on IMDb ↗</span>
+        <div><span class="film-cat"><span data-t="cat_short">Short</span> · 2022</span><div class="film-name">Inés Unfortunately</div><p class="film-fest">OutFest LA · Tallgrass FF · Austin FF · NALIP</p></div>
+        <span class="film-link" data-t="w_imdb">View on IMDb ↗</span>
       </a>
       <a class="film" href="https://www.imdb.com/title/tt8906466/" target="_blank" rel="noopener">
-        <div><span class="film-cat">Short · 2019</span><div class="film-name">Good Girl</div><p class="film-fest">Indy Film Festival · Boulevard FF</p></div>
-        <span class="film-link">View on IMDb ↗</span>
+        <div><span class="film-cat"><span data-t="cat_short">Short</span> · 2019</span><div class="film-name">Good Girl</div><p class="film-fest">Indy Film Festival · Boulevard FF</p></div>
+        <span class="film-link" data-t="w_imdb">View on IMDb ↗</span>
       </a>
       <a class="film" href="https://www.amazon.com/Diego-My-Mind-Alicia-Herder/dp/B0G4SGYZNZ/" target="_blank" rel="noopener">
-        <div><span class="film-cat">Short · 2017</span><div class="film-name">Diego on my Mind</div><p class="film-fest">Available on Amazon Prime</p></div>
-        <span class="film-link">Watch on Amazon ↗</span>
+        <div><span class="film-cat"><span data-t="cat_short">Short</span> · 2017</span><div class="film-name">Diego on my Mind</div><p class="film-fest" data-t="fest_amazon">Available on Amazon Prime</p></div>
+        <span class="film-link" data-t="w_amazon">Watch on Amazon ↗</span>
       </a>
     </div>
   </section>
 
   <section id="story">
-    <p class="label" data-reveal>The Story</p>
+    <p class="label" data-reveal data-t="story_label">The Story</p>
     <div class="story">
       <div class="story-text" data-reveal>
-        <p>Marcel Pérez grew up in Miami, which means he came of age loud, sweaty, and surrounded by people who treat coffee like a love language. He's a 1st generation <strong>Cuban-Peruvian American</strong> and a film producer based in Los Angeles, and he's spent his career proving that stories from the margins can also be epic, strange, funny, and a little monstrous.</p>
-        <p>His feature <em>La Leyenda Negra</em> premiered at <strong>Sundance 2020</strong> and found distribution through <strong>HBO Max</strong> and HBO Latino, earning nominations for the <strong>John Cassavetes Spirit Award</strong> and the <strong>GLAAD Media Award</strong>. He's produced three features total, won the <strong>BlackStar Pitch</strong> grant from WarnerMedia OneFifty, received a <strong>NALIP grant</strong> for short film work, and in 2025 was selected as a <strong>PGA Create Fellow</strong> for his feature in development, <em>The Girl who Cried Wolf</em>.</p>
-        <p>Before film, he studied mechanical engineering and robotics. He performs improv at UCB, produces the comedy podcast <em>Witch, Yes!</em> (<a href="https://podcasts.apple.com/us/podcast/witch-yes/id1440692608" target="_blank" rel="noopener">Apple</a> · <a href="https://open.spotify.com/show/1kWQXQEAkBUhLRFpvqP0EJ" target="_blank" rel="noopener">Spotify</a>), and will always make you a cafecito.</p>
+        <p data-t="bio1">Marcel Pérez grew up in Miami, which means he came of age loud, sweaty, and surrounded by people who treat coffee like a love language. He's a 1st generation <strong>Cuban-Peruvian American</strong> and a film producer based in Los Angeles, and he's spent his career proving that stories from the margins can also be epic, strange, funny, and a little monstrous.</p>
+        <p data-t="bio2">His feature <em>La Leyenda Negra</em> premiered at <strong>Sundance 2020</strong> and found distribution through <strong>HBO Max</strong> and HBO Latino, earning nominations for the <strong>John Cassavetes Spirit Award</strong> and the <strong>GLAAD Media Award</strong>. He's produced three features total, won the <strong>BlackStar Pitch</strong> grant from WarnerMedia OneFifty, received a <strong>NALIP grant</strong> for short film work, and in 2025 was selected as a <strong>PGA Create Fellow</strong> for his feature in development, <em>The Girl who Cried Wolf</em>.</p>
+        <p data-t="bio3">Before film, he studied mechanical engineering and robotics. He performs improv at UCB, produces the comedy podcast <em>Witch, Yes!</em> (<a href="https://podcasts.apple.com/us/podcast/witch-yes/id1440692608" target="_blank" rel="noopener">Apple</a> · <a href="https://open.spotify.com/show/1kWQXQEAkBUhLRFpvqP0EJ" target="_blank" rel="noopener">Spotify</a>), and will always make you a cafecito.</p>
       </div>
       <div class="story-photo-wrap" data-reveal>
         <img class="story-photo" src="images/headshot.jpg" alt="Marcel Pérez">
@@ -500,9 +533,10 @@
   </section>
 
   <section id="press">
-    <p class="label" data-reveal>Press</p>
-    <h2 class="s-title" data-reveal>In the news.</h2>
+    <p class="label" data-reveal data-t="press_label">Press</p>
+    <h2 class="s-title" data-reveal data-t="press_title">In the news.</h2>
     <div style="margin-top:2.6rem" data-reveal>
+      <a class="press-row" href="https://deadline.com/2026/05/wscripted-2026-screenplay-list-unveiled-1236920842/" target="_blank" rel="noopener"><span class="press-outlet">Deadline</span><span class="press-head">'The Girl who Cried Wolf' Makes the WScripted 2026 Cannes Screenplay List</span><span class="press-year">2026</span><span class="press-arr">↗</span></a>
       <a class="press-row" href="https://deadline.com/2020/11/la-leyenda-negra-hbo-premiere-date-trailer-1234612366/" target="_blank" rel="noopener"><span class="press-outlet">Deadline</span><span class="press-head">'La Leyenda Negra' Lands at HBO, Gets Premiere Date on HBO Latino &amp; HBO Max</span><span class="press-year">2020</span><span class="press-arr">↗</span></a>
       <a class="press-row" href="https://www.hollywoodreporter.com/movies/movie-reviews/la-leyenda-negra-review-1273502/" target="_blank" rel="noopener"><span class="press-outlet">Hollywood Reporter</span><span class="press-head">'La Leyenda Negra' Film Review, Sundance 2020</span><span class="press-year">2020</span><span class="press-arr">↗</span></a>
       <a class="press-row" href="https://deadline.com/2025/10/pga-create-fellows-2025-unveiled-exclusive-1236596575/" target="_blank" rel="noopener"><span class="press-outlet">Deadline</span><span class="press-head">PGA Create Fellows for 2025 Unveiled (Exclusive)</span><span class="press-year">2025</span><span class="press-arr">↗</span></a>
@@ -514,17 +548,19 @@
   <div id="contact">
     <div class="contact-inner">
       <div class="contact-left" data-reveal>
-        <p class="label">Contact</p>
-        <h2 class="s-title">Come make <em>something</em> with me.</h2>
-        <p>Collaborating, financing, or you've got a project that scares you a little? That's usually the good stuff. Pull up a chair, cafecito's on me.</p>
-        <a class="cmail" href="mailto:marcel@marcelperez.co">marcel@marcelperez.co</a>
+        <p class="label" data-t="c_label">Contact</p>
+        <h2 class="s-title" data-t="c_title">Come make <em>something</em> with me.</h2>
+        <p data-t="c_copy">Collaborating, financing, or you've got a project that scares you a little? That's usually the good stuff. Pull up a chair, cafecito's on me.</p>
+        <a class="cmail" id="cmail" data-user="marcel" data-domain="marcelperez.co" href="#" rel="nofollow" data-t="cmail_text">Email me</a>
         <div class="socials"><a href="https://www.instagram.com/heymarcelperez/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/in/marcelperezproducer/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.imdb.com/name/nm6511032/" target="_blank" rel="noopener">IMDb</a></div>
       </div>
-      <form action="https://formspree.io/f/xjvnzjzj" method="POST" data-reveal>
-        <div class="field"><label for="n">Name</label><input id="n" name="name" placeholder="Your name" required></div>
-        <div class="field"><label for="e">Email</label><input id="e" name="_replyto" type="email" placeholder="your@email.com" required></div>
-        <div class="field"><label for="m">Message</label><textarea id="m" name="message" rows="5" placeholder="Tell me about your project..." required></textarea></div>
-        <button type="submit" class="btn btn-cream" style="align-self:flex-start">Send message</button>
+      <form id="contactForm" action="https://formspree.io/f/xjvnzjzj" method="POST" data-reveal>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0">
+        <div class="field"><label for="n" data-t="f_name">Name</label><input id="n" name="name" placeholder="Your name" data-tph="ph_name" required></div>
+        <div class="field"><label for="e" data-t="f_email">Email</label><input id="e" name="_replyto" type="email" placeholder="your@email.com" required></div>
+        <div class="field"><label for="m" data-t="f_msg">Message</label><textarea id="m" name="message" rows="5" placeholder="Tell me about your project..." data-tph="ph_msg" required></textarea></div>
+        <button type="submit" class="btn btn-cream" style="align-self:flex-start" data-t="f_send">Send message</button>
+        <p id="formStatus" class="form-status" role="status" hidden></p>
       </form>
     </div>
   </div>
@@ -576,6 +612,85 @@
     addEventListener('scroll',serve,{passive:true});
     addEventListener('resize',serve);
     serve();
+  }
+
+  const root=document.documentElement;
+
+  // Email assembled at runtime so scrapers can't harvest it from the source
+  const cmail=document.getElementById('cmail');
+  if(cmail){
+    const addr=cmail.dataset.user+'@'+cmail.dataset.domain;
+    cmail.href='mailto:'+addr; cmail.textContent=addr; cmail.removeAttribute('data-t');
+  }
+
+  // Dyslexia-friendly font toggle
+  const dysBtn=document.getElementById('dysBtn');
+  const setDys=on=>{root.classList.toggle('dys',on);dysBtn.setAttribute('aria-pressed',String(on));try{localStorage.setItem('mp-dys',on?'1':'0')}catch(e){}};
+  dysBtn.addEventListener('click',()=>setDys(!root.classList.contains('dys')));
+  try{if(localStorage.getItem('mp-dys')==='1')setDys(true)}catch(e){}
+
+  // Language toggle (English / Spanish)
+  const langBtn=document.getElementById('langBtn');
+  const EN=new Map(), ENPH=new Map();
+  document.querySelectorAll('[data-t]').forEach(el=>EN.set(el,el.innerHTML));
+  document.querySelectorAll('[data-tph]').forEach(el=>ENPH.set(el,el.getAttribute('placeholder')));
+  const ES={
+    nav_dev:`Desarrollo`, nav_work:`Trabajo`, nav_story:`Historia`, nav_contact:`Contacto`,
+    hola:`Hola, soy`,
+    slug:`Un productor de cine cubano-peruano que cuenta historias desde los márgenes: épicas, raras, cómicas y un poquito monstruosas.`,
+    flavor:`Criado en Miami, radicado en LA. <b>Improvisador</b> en UCB, <b>podcastero</b>, y hago un cafecito buenísimo.`,
+    cta1:`Conoce mi nueva película`, cta2:`Ver el trabajo ↓`,
+    strip_p:`La filmografía · explórala`, strip_a:`Todo el trabajo →`,
+    m_label:`Por qué hago películas`,
+    m_quote:`Crecí en Miami, donde uno se hace grande a todo volumen, sudando y rodeado de gente que trata el café como un idioma de cariño. Hago películas para demostrar que las historias desde los márgenes también pueden ser <em>épicas, raras, cómicas</em> y un poquito monstruosas.`,
+    dev_label:`En desarrollo`,
+    dev_title2:`La próxima está buscando <em>a su gente.</em>`,
+    dev_flag:`Largometraje · Busco co-productores y financiamiento`,
+    dev_log:`Convencida de que su mamá alcohólica se está convirtiendo en loba, Bee, de 6 años, corre a encontrar una "cura" antes de la luna llena, mezclando la fantasía y la realidad en un intento desesperado por salvarla.`,
+    dev_ask:`¿Quieres el deck o conversar?<br><b>Hablemos.</b>`, dev_btn:`Pide el deck`,
+    work_label:`Trabajo selecto`, work_title:`Historias que <em>tenían que hacerse.</em>`,
+    cat_feat:`Largometraje`, cat_doc:`Corto documental`, cat_short:`Cortometraje`,
+    fest_amazon:`Disponible en Amazon Prime`,
+    w_plex:`Verla en Plex ↗`, w_amazon:`Verla en Amazon ↗`, w_blackstar:`Premio BlackStar ↗`, w_imdb:`Ver en IMDb ↗`,
+    story_label:`La historia`,
+    bio1:`Marcel Pérez creció en Miami, lo que quiere decir que se hizo grande a todo volumen, sudando y rodeado de gente que trata el café como un idioma de cariño. Es <strong>cubano-peruano americano</strong> de primera generación y productor de cine radicado en Los Ángeles, y se ha pasado la carrera demostrando que las historias desde los márgenes también pueden ser épicas, raras, cómicas y un poquito monstruosas.`,
+    bio2:`Su largometraje <em>La Leyenda Negra</em> se estrenó en <strong>Sundance 2020</strong> y llegó a <strong>HBO Max</strong> y HBO Latino, con nominaciones al <strong>John Cassavetes Spirit Award</strong> y al <strong>GLAAD Media Award</strong>. Ha producido tres largometrajes, se ganó el <strong>BlackStar Pitch</strong> de WarnerMedia OneFifty, recibió un <strong>grant de NALIP</strong> para cortos, y en 2025 lo eligieron como <strong>PGA Create Fellow</strong> por su largometraje en desarrollo, <em>The Girl who Cried Wolf</em>.`,
+    bio3:`Antes del cine, estudió ingeniería mecánica y robótica. Improvisa en UCB, produce el podcast de comedia <em>Witch, Yes!</em> (<a href="https://podcasts.apple.com/us/podcast/witch-yes/id1440692608" target="_blank" rel="noopener">Apple</a> · <a href="https://open.spotify.com/show/1kWQXQEAkBUhLRFpvqP0EJ" target="_blank" rel="noopener">Spotify</a>), y siempre te va a hacer un cafecito.`,
+    press_label:`Prensa`, press_title:`En las noticias.`,
+    c_label:`Contacto`, c_title:`Ven a crear <em>algo</em> conmigo.`,
+    c_copy:`¿Colaborar, financiar, o tienes un proyecto que te da un poquito de miedo? Ahí casi siempre está lo bueno. Siéntate, que el cafecito lo pongo yo.`,
+    f_name:`Nombre`, f_email:`Correo`, f_msg:`Mensaje`, f_send:`Enviar mensaje`
+  };
+  const ESPH={ph_name:`Tu nombre`, ph_msg:`Cuéntame de tu proyecto...`};
+  function setLang(lang){
+    const es=lang==='es';
+    document.querySelectorAll('[data-t]').forEach(el=>{const k=el.dataset.t; el.innerHTML=(es&&ES[k]!=null)?ES[k]:EN.get(el);});
+    document.querySelectorAll('[data-tph]').forEach(el=>{const k=el.dataset.tph; el.setAttribute('placeholder',(es&&ESPH[k]!=null)?ESPH[k]:ENPH.get(el));});
+    root.lang=es?'es':'en';
+    langBtn.textContent=es?'EN':'ES';
+    langBtn.setAttribute('aria-pressed',String(es));
+    langBtn.title=es?'View in English':'Ver en español';
+    try{localStorage.setItem('mp-lang',lang)}catch(e){}
+  }
+  langBtn.addEventListener('click',()=>setLang(root.lang==='es'?'en':'es'));
+  let savedLang=null; try{savedLang=localStorage.getItem('mp-lang')}catch(e){}
+  setLang(savedLang||'en');
+
+  // Contact form: submit to Formspree via fetch, show inline status (honeypot handled server-side)
+  const form=document.getElementById('contactForm'), fstatus=document.getElementById('formStatus');
+  if(form){
+    const MSG={en:{sending:'Sending…',ok:"Thanks, I'll be in touch soon.",err:'Something went wrong. Try email instead.'},
+               es:{sending:'Enviando…',ok:'¡Gracias! Te escribo pronto.',err:'Algo falló. ¿Me escribes por correo?'}};
+    form.addEventListener('submit',async e=>{
+      e.preventDefault();
+      const m=MSG[root.lang]||MSG.en;
+      fstatus.hidden=false; fstatus.className='form-status'; fstatus.textContent=m.sending;
+      try{
+        const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+        if(res.ok){form.reset(); fstatus.classList.add('ok'); fstatus.textContent=m.ok;}
+        else{fstatus.classList.add('err'); fstatus.textContent=m.err;}
+      }catch(_){fstatus.classList.add('err'); fstatus.textContent=m.err;}
+    });
   }
 </script>
 </body>
