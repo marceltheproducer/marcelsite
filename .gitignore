@@ -10,3 +10,12 @@ desktop.ini
 .vscode/
 .idea/
 *.swp
+
+# Design preview / scratch build (not part of the live site)
+.preview-assets/
+redesign-preview.html
+concept-a-marquee.html
+concept-b-cafecito.html
+concept-c-greca.html
+concept-d-neondeco.html
+cafetera-options.html
