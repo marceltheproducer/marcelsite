@@ -194,7 +194,6 @@
   .story{margin-top:2.6rem;display:grid;grid-template-columns:1fr 320px;gap:4rem;align-items:start}
   .story-photo-wrap{position:relative;padding:12px;background:linear-gradient(150deg,var(--paper3),var(--paper));border:1px solid var(--line2);border-radius:4px;box-shadow:0 24px 50px -30px rgba(60,40,20,.45)}
   .story-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 18%;border-radius:2px;display:block}
-  .story-text .story-first{font-family:var(--serif);font-weight:300;font-size:clamp(1.5rem,2.7vw,2.1rem);line-height:1.4;color:var(--ink);margin-bottom:1.5rem;text-wrap:balance}
   .story-text p{font-size:1.06rem;line-height:1.92;color:#3f3223;margin-bottom:1.2rem}
   .story-text p:last-child{margin-bottom:0}
   .story-text strong{color:var(--ink);font-weight:600}
@@ -236,7 +235,7 @@
   .foot-name .gm{display:inline-flex;width:19px;height:21px;color:#e6b45c}
   .foot-copy{display:flex;align-items:center;gap:.6rem;font-size:.74rem;color:#8a7657}
 
-  /* ── PHONE / TABLET ─────────────────────────────────────── */
+  /* Phone / tablet */
   @media(max-width:640px){
     #hero{padding:6.5rem 1.5rem 2rem}
     .mega{white-space:normal;font-size:clamp(3.2rem,16vw,5.5rem);line-height:.9}
@@ -259,7 +258,7 @@
   .seq>*{opacity:0;transform:translateY(18px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
   .seq>*:nth-child(1){animation-delay:.05s}.seq>*:nth-child(2){animation-delay:.16s}.seq>*:nth-child(3){animation-delay:.28s}.seq>*:nth-child(4){animation-delay:.4s}.seq>*:nth-child(5){animation-delay:.5s}.seq>*:nth-child(6){animation-delay:.6s}
   @keyframes rise{to{opacity:1;transform:none}}
-  @media(prefers-reduced-motion:reduce){.band-track{animation:none}.greca .steam path{animation:none}.hero-art{animation:none}.seq>*,[data-reveal]{animation:none!important;opacity:1!important;transform:none!important;transition:none}.dev-dot{animation:none}html{scroll-behavior:auto}}
+  @media(prefers-reduced-motion:reduce){.band-track{animation:none}.greca .steam path{animation:none}.seq>*,[data-reveal]{animation:none!important;opacity:1!important;transform:none!important;transition:none}.dev-dot{animation:none}html{scroll-behavior:auto}}
   </style>
 </head>
 <body>
