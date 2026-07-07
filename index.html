@@ -252,6 +252,9 @@
   .foot-name{display:flex;align-items:center;gap:.6rem;font-family:var(--serif);font-weight:700;font-size:1.5rem;color:var(--paper2)}
   .foot-name .gm{display:inline-flex;width:19px;height:21px;color:#e6b45c}
   .foot-copy{display:flex;align-items:center;gap:.6rem;font-size:.74rem;color:#8a7657}
+  .foot-link{font-size:.78rem;letter-spacing:.02em;color:#e6b45c;text-decoration:none;transition:opacity .2s}
+  .foot-link:hover{opacity:.72}
+  @media(max-width:600px){.foot-inner{justify-content:center;text-align:center}}
 
   /* Phone / tablet */
   @media(max-width:640px){
@@ -574,7 +577,7 @@
     </div>
   </div>
 
-  <footer><div class="foot-inner"><span class="foot-name"><span class="gm"><svg viewBox="0 0 104 118" width="100%" height="100%" stroke-width="3.6" aria-hidden="true"><g transform="translate(54,58) scale(1.16,0.9) translate(-54,-58)"><use href="#grc-pot" filter="url(#grc-r)"/></g></svg></span> Marcel Pérez</span><span class="foot-copy">© 2026 · Los Angeles <span class="flags"><svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Cuba"><rect width="30" height="20" fill="#fff"/><rect width="30" height="4" y="0" fill="#0b429a"/><rect width="30" height="4" y="8" fill="#0b429a"/><rect width="30" height="4" y="16" fill="#0b429a"/><path d="M0 0 L0 20 L13 10 Z" fill="#cb1f2b"/><g transform="translate(4.7,10)" fill="#fff"><path d="M0 -3 L0.9 -0.9 L2.9 -0.9 L1.2 0.5 L1.8 2.5 L0 1.2 L-1.8 2.5 L-1.2 0.5 L-2.9 -0.9 L-0.9 -0.9 Z"/></g></svg><svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Peru"><rect width="30" height="20" fill="#fff"/><rect width="10" height="20" x="0" fill="#d4132a"/><rect width="10" height="20" x="20" fill="#d4132a"/></svg></span></span></div></footer>
+  <footer><div class="foot-inner"><span class="foot-name"><span class="gm"><svg viewBox="0 0 104 118" width="100%" height="100%" stroke-width="3.6" aria-hidden="true"><g transform="translate(54,58) scale(1.16,0.9) translate(-54,-58)"><use href="#grc-pot" filter="url(#grc-r)"/></g></svg></span> Marcel Pérez</span><a class="foot-link" href="https://fest.marcelperez.co" target="_blank" rel="noopener" data-t="foot_tool">Festival Planner ↗</a><span class="foot-copy">© 2026 · Los Angeles <span class="flags"><svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Cuba"><rect width="30" height="20" fill="#fff"/><rect width="30" height="4" y="0" fill="#0b429a"/><rect width="30" height="4" y="8" fill="#0b429a"/><rect width="30" height="4" y="16" fill="#0b429a"/><path d="M0 0 L0 20 L13 10 Z" fill="#cb1f2b"/><g transform="translate(4.7,10)" fill="#fff"><path d="M0 -3 L0.9 -0.9 L2.9 -0.9 L1.2 0.5 L1.8 2.5 L0 1.2 L-1.8 2.5 L-1.2 0.5 L-2.9 -0.9 L-0.9 -0.9 Z"/></g></svg><svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Peru"><rect width="30" height="20" fill="#fff"/><rect width="10" height="20" x="0" fill="#d4132a"/><rect width="10" height="20" x="20" fill="#d4132a"/></svg></span></span></div></footer>
 </main>
 
 <script>
@@ -666,6 +669,7 @@
     bio2:`Su largometraje <em>La Leyenda Negra</em> se estrenó en <strong>Sundance 2020</strong> y llegó a <strong>HBO Max</strong> y HBO Latino, con nominaciones al <strong>John Cassavetes Spirit Award</strong> y al <strong>GLAAD Media Award</strong>. Ha producido tres largometrajes, se ganó el <strong>BlackStar Pitch</strong> de WarnerMedia OneFifty, recibió un <strong>grant de NALIP</strong> para cortos, y en 2025 lo eligieron como <strong>PGA Create Fellow</strong> por su largometraje en desarrollo, <em>The Girl who Cried Wolf</em>.`,
     bio3:`Antes del cine, estudió ingeniería mecánica y robótica. Improvisa en UCB, produce el podcast de comedia <em>Witch, Yes!</em> (<a href="https://podcasts.apple.com/us/podcast/witch-yes/id1440692608" target="_blank" rel="noopener">Apple</a> · <a href="https://open.spotify.com/show/1kWQXQEAkBUhLRFpvqP0EJ" target="_blank" rel="noopener">Spotify</a>), y siempre te va a hacer un cafecito.`,
     press_label:`Prensa`, press_title:`En las noticias.`,
+    foot_tool:`Planificador de festivales ↗`,
     c_label:`Contacto`, c_title:`Ven a crear <em>algo</em> conmigo.`,
     c_copy:`¿Colaborar, financiar, o tienes un proyecto que te da un poquito de miedo? Ahí casi siempre está lo bueno. Siéntate, que el cafecito lo pongo yo.`,
     f_name:`Nombre`, f_email:`Correo`, f_msg:`Mensaje`, f_send:`Enviar mensaje`
