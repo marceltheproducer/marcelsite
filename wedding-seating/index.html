@@ -335,10 +335,16 @@ const CAP = { 'Ball State 48"': 6, 'FS 05 8ft': 9, 'Grandpa 72"': 12, 'Miami 72"
    To add more of her, drop files in art/artemis/ and list them here. */
 const ARTEMIS_PHOTOS = [
   'art/artemis/artemis-1.jpg',
+  'art/artemis/artemis-2.jpg',
+  'art/artemis/artemis-3.jpg',
+  'art/artemis/artemis-4.jpg',
+  'art/artemis/artemis-5.jpg',
+  'art/artemis/artemis-6.jpg',
+  'art/artemis/artemis-7.jpg',
+  'art/artemis/artemis-8.jpg',
+  'art/artemis/artemis-9.jpg',
   // More of her go here, one line each, after dropping the file in
-  // art/artemis/. The grid takes any number. Only one so far because the two
-  // photos on hand turned out to be the same picture at two sizes, and the
-  // same cat twice reads as a bug rather than a joke.
+  // art/artemis/. The grid takes any number.
 ];
 
 function showArtemis() {
@@ -365,10 +371,17 @@ function showArtemis() {
         margin:10px 0 2px;text-transform:uppercase}
       #artemis-egg p{font-size:14px;letter-spacing:.16em;text-transform:uppercase;
         opacity:.62;margin:0 0 22px}
-      #artemis-egg .shots{display:grid;gap:14px;max-width:460px;margin:0 auto;
-        grid-template-columns:1fr}
+      #artemis-egg .shots{display:grid;gap:10px;max-width:520px;margin:0 auto;
+        grid-template-columns:repeat(2,1fr)}
       #artemis-egg img{width:100%;height:auto;display:block;border-radius:10px;
-        border:1px solid rgba(244,242,238,.18)}
+        border:1px solid rgba(244,242,238,.18);
+        opacity:0;transform:scale(.88) rotate(var(--tilt,0deg));
+        transition:opacity .28s ease, transform .42s cubic-bezier(.2,1.5,.4,1)}
+      #artemis-egg img.in{opacity:1;transform:scale(1) rotate(0deg)}
+      /* Every photo must end up visible even if the music never plays, so the
+         animation is the only thing motion preference turns off. */
+      @media (prefers-reduced-motion:reduce){
+        #artemis-egg img{opacity:1;transform:none;transition:none}}
       #artemis-egg button{margin-top:26px;background:transparent;color:inherit;
         font:inherit;font-size:13px;letter-spacing:.18em;text-transform:uppercase;
         border:1px solid rgba(244,242,238,.35);border-radius:8px;
@@ -396,6 +409,74 @@ function showArtemis() {
   const purr = new Audio('audio/artemis-outro.mp3');
   purr.play().catch(() => {});
 
+  /* She arrives on the beat. The bass is read off an analyser and a photo pops
+     in on each onset, which is a dozen lines more than a fixed interval and
+     actually lands with the music instead of near it.
+
+     Two things this must never do, both worse than no animation. It must not
+     mute her song: routing an element into a context that will not start kills
+     the audio, so the analyser is only attached to a context already running,
+     exactly as the main player does it. And it must not leave photos
+     invisible: a quiet passage, a failed decode or a browser that blocks
+     playback would otherwise hide the cat, which is the entire joke. So a
+     timer shows whatever is left after eight seconds regardless, and the
+     fallback path is a plain cadence. */
+  // Not `shots` — that name is already the HTML string above, and a second
+  // const of it in the same scope is a SyntaxError that takes the whole
+  // inline script with it. The page went blank, not just the cat.
+  const pics = [...el.querySelectorAll('img')];
+  pics.forEach((img, i) => img.style.setProperty('--tilt', (i % 2 ? 3.5 : -3.5) + 'deg'));
+  let shown = 0, raf = 0, sweep = 0, lastHit = 0;
+  const pop = () => { if (shown < pics.length) pics[shown++].classList.add('in'); };
+  const showAll = () => { cancelAnimationFrame(raf); clearInterval(beat);
+                          while (shown < pics.length) pop(); };
+  let beat = 0;
+  const still = (() => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; }
+                         catch (e) { return false; } })();
+  if (still) { showAll(); }
+  else {
+    pop();                                   // one immediately, so it never looks empty
+    let listening = false;
+    try {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      const c = AC ? new AC() : null;
+      if (c && c.state !== 'running') c.resume().catch(() => {});
+      if (c && c.state === 'running') {
+        const an = c.createAnalyser();
+        an.fftSize = 256;
+        c.createMediaElementSource(purr).connect(an);
+        an.connect(c.destination);
+        const bins = new Uint8Array(an.frequencyBinCount);
+        let avg = 0;
+        const tick = now => {
+          an.getByteFrequencyData(bins);
+          let e = 0; for (let i = 0; i < 8; i++) e += bins[i];
+          e /= 8;
+          avg = avg ? avg * 0.92 + e * 0.08 : e;
+          // A rise well above the running average, with a floor so silence
+          // cannot trigger, and a gap so one kick is not counted twice.
+          if (e > avg * 1.22 && e > 28 && now - lastHit > 240) { lastHit = now; pop(); }
+          if (shown < pics.length) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+        listening = true;
+        purr.__ctx = c;
+        // A backstop under the beat. If the analyser hears nothing - a quiet
+        // intro, a decode that never starts, a browser that reports silence -
+        // the photos would sit still until the eight second sweep, and eight
+        // seconds of one cat is a stall rather than a reveal. This keeps them
+        // arriving whenever a beat has not landed recently, and goes quiet on
+        // its own as soon as the music takes over.
+        beat = setInterval(() => {
+          if (shown >= pics.length) { clearInterval(beat); return; }
+          if (performance.now() - lastHit > 700) { lastHit = performance.now(); pop(); }
+        }, 700);
+      }
+    } catch (e) {}
+    if (!listening) beat = setInterval(() => { pop(); if (shown >= pics.length) clearInterval(beat); }, 420);
+    sweep = setTimeout(showAll, 8000);
+  }
+
   // Her song has to stop when the phone goes away, for the same reason the
   // wedding song does.
   const onHide = () => { if (document.hidden) purr.pause(); };
@@ -406,8 +487,10 @@ function showArtemis() {
     document.removeEventListener('visibilitychange', onHide);
     window.removeEventListener('pagehide', onHide);
     document.removeEventListener('keydown', onKey);
+    cancelAnimationFrame(raf); clearInterval(beat); clearTimeout(sweep);
     purr.pause();
     purr.src = '';
+    if (purr.__ctx) { try { purr.__ctx.close(); } catch (e) {} }
     el.remove();
     if (wasPlaying && song) {
       if (window.__amFadeIn) window.__amFadeIn();
