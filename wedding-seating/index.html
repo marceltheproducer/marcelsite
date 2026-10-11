@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="description" content="Find your seat at Alicia &amp; Marcel's wedding.">
+<meta property="og:title" content="Find Your Seat · Alicia &amp; Marcel">
+<meta property="og:description" content="The oracle knows your table.">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find Your Seat · Alicia &amp; Marcel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html { background: #0a0a0a; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body { margin: 0; background: #0a0a0a; -webkit-font-smoothing: antialiased; overscroll-behavior-y: none; }
+  button, a, input { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+  input::placeholder { color: currentColor; opacity: .45; letter-spacing: .18em; }
+  a { color: inherit; }
+  a:hover { opacity: .8; }
+  @keyframes orb { 0%,100% { transform: scale(1); opacity: .9 } 50% { transform: scale(1.04); opacity: 1 } }
+  @keyframes glow { 0% { opacity: .12; transform: scale(.82) } 30% { opacity: .38; transform: scale(1) } 55% { opacity: .6; transform: scale(1.12) } 80% { opacity: .3; transform: scale(.96) } 100% { opacity: .12; transform: scale(.82) } }
+  @keyframes twinkle { 0% { opacity: .1; transform: scale(.55) } 35% { opacity: 1; transform: scale(1.15) } 55% { opacity: .8; transform: scale(1) } 100% { opacity: .1; transform: scale(.55) } }
+  @keyframes float { 0% { transform: translateY(0) rotate(0) } 25% { transform: translateY(-3px) rotate(-.5deg) } 50% { transform: translateY(-6px) rotate(0) } 75% { transform: translateY(-3px) rotate(.5deg) } 100% { transform: translateY(0) rotate(0) } }
+  @keyframes spin { to { transform: rotate(360deg) } }
+  @keyframes spinRev { to { transform: rotate(-360deg) } }
+  @keyframes mist { 0% { transform: rotate(0) scale(1) } 50% { transform: rotate(180deg) scale(1.1) } 100% { transform: rotate(360deg) scale(1) } }
+  @keyframes raysBreathe { 0%, 100% { transform: scale(1) } 50% { transform: scale(1.035) } }
+  @property --sweep { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+  @keyframes sweep { to { --sweep: 360deg } }
+  @keyframes raysIdle { 0%, 100% { transform: rotate(-1deg) scale(1) } 50% { transform: rotate(1deg) scale(1.018) } }
+  @keyframes shimmer { 0%, 100% { opacity: 1 } 50% { opacity: .55 } }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0a0a0a"/><circle cx="50" cy="50" r="20" fill="none" stroke="#f4f2ee" stroke-width="2.5"/><path d="M50 40 L52 48 L60 50 L52 52 L50 60 L48 52 L40 50 L48 48 Z" fill="#f4f2ee"/></svg></template>
+
+<div style="{{ themeVars }}">
+<div style="position:relative;min-height:100vh;background:var(--bg,#0a0a0a);color:var(--ink,#f4f2ee);font-family:'Cormorant Garamond',serif;overflow:hidden">
+  <sc-if value="{{ showMusicBtn }}" hint-placeholder-val="{{ true }}">
+  <button data-music-btn="1" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" style="position:fixed;z-index:20;top:calc(28px + env(safe-area-inset-top));left:max(calc(28px + env(safe-area-inset-left)), calc(50% - 212px));width:44px;height:44px;padding:0;display:flex;align-items:center;justify-content:center;background:var(--bg,#0a0a0a);border:1px solid rgba(var(--rgb,244,242,238),.55);color:var(--ink,#f4f2ee);cursor:pointer" style-hover="border-color:rgba(var(--rgb,244,242,238),.95)">
+    <span style="position:relative;display:block;font-family:'Cormorant Garamond',serif;font-size:24px;line-height:1;opacity:{{ musicIconOp }}">♪</span>
+    <sc-if value="{{ musicOff }}" hint-placeholder-val="{{ false }}">
+      <span style="position:absolute;left:11px;right:11px;top:50%;height:1px;background:var(--ink,#f4f2ee);transform:rotate(-45deg)"></span>
+    </sc-if>
+  </button>
+  </sc-if>
+  <div style="position:relative;max-width:480px;margin:0 auto;padding:calc(44px + env(safe-area-inset-top)) max(22px, env(safe-area-inset-right)) calc(52px + env(safe-area-inset-bottom)) max(22px, env(safe-area-inset-left));box-sizing:border-box">
+
+    <div style="position:absolute;inset:14px;border:1px solid rgba(var(--rgb,244,242,238),.5);pointer-events:none"></div>
+    <div style="position:absolute;inset:20px;border:1px solid rgba(var(--rgb,244,242,238),.22);pointer-events:none"></div>
+    <div style="position:absolute;left:5px;top:5px;width:20px;height:20px;background:var(--ink,#f4f2ee);clip-path:polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)"></div>
+    <div style="position:absolute;right:5px;top:5px;width:20px;height:20px;background:var(--ink,#f4f2ee);clip-path:polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)"></div>
+    <div style="position:absolute;left:5px;bottom:5px;width:20px;height:20px;background:var(--ink,#f4f2ee);clip-path:polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)"></div>
+    <div style="position:absolute;right:5px;bottom:5px;width:20px;height:20px;background:var(--ink,#f4f2ee);clip-path:polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)"></div>
+    <sc-for list="{{ stars }}" as="s" hint-placeholder-count="0">
+      <div style="position:absolute;left:{{ s.l }};right:{{ s.r }};top:{{ s.y }}px;width:{{ s.w }}px;height:{{ s.w }}px;opacity:{{ s.o }};background:var(--ink,#f4f2ee);clip-path:{{ s.cp }}"></div>
+    </sc-for>
+
+    <div ref="{{ headRef }}" style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <sc-for list="{{ haloStars }}" as="s" hint-placeholder-count="0">
+        <div style="position:absolute;left:{{ s.x }}px;top:{{ s.y }}px;width:{{ s.w }}px;height:{{ s.w }}px;opacity:{{ s.o }};background:var(--ink,#f4f2ee);pointer-events:none;clip-path:{{ s.cp }}"></div>
+      </sc-for>
+      <div ref="{{ namesRef }}" style="font-size:15px;font-weight:500;letter-spacing:.42em;padding-left:.42em;margin-top:6px">THE WEDDING OF</div>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
+        <div style="width:54px;height:1px;background:rgba(var(--rgb,244,242,238),.5)"></div>
+        <div style="width:9px;height:9px;background:var(--ink,#f4f2ee);clip-path:polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)"></div>
+        <div style="width:54px;height:1px;background:rgba(var(--rgb,244,242,238),.5)"></div>
+      </div>
+      <div ref="{{ ballRef }}" key="{{ ballKey }}" role="img" aria-label="Crystal ball held in two hands" style="position:relative;width:62%;max-width:250px;margin-top:{{ orbTop }};aspect-ratio:1269 / 1241;opacity:{{ orbFade }};margin-bottom:{{ orbRoom }};animation:{{ ballFloat }};transition:margin-bottom 2s cubic-bezier(.65,0,.35,1), margin-top 2s cubic-bezier(.65,0,.35,1), opacity .45s ease">
+        {{ heroGlow }}
+        <div style="position:absolute;inset:0;mask-image:linear-gradient(to bottom,rgba(0,0,0,0) 52%,#000 68%),radial-gradient(ellipse 56% 62% at 50% 50%,#000 64%,rgba(0,0,0,0) 100%);-webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,0) 52%,#000 68%),radial-gradient(ellipse 56% 62% at 50% 50%,#000 64%,rgba(0,0,0,0) 100%);">
+          <div style="position:absolute;inset:0;transform-origin:50% 30%;transform:scale({{ orbScale }});transition:{{ orbTr }}">
+            <div style="position:absolute;inset:0;opacity:{{ raysOp }};transition:{{ raysTr }}">
+              <div style="position:absolute;inset:0;transform-origin:50.3% 42.7%;animation:{{ raysAnim }}">
+                <img src="art/orb11/rays.png" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;display:block;pointer-events:none;filter:{{ inkFilter }};opacity:.62">
+                <img src="art/orb11/rays.png" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;display:block;pointer-events:none;filter:{{ inkFilter }};mask-image:conic-gradient(from var(--sweep) at 50.3% 42.7%, rgba(0,0,0,0) 0deg, rgba(0,0,0,0) 250deg, #000 300deg, rgba(0,0,0,0) 350deg);-webkit-mask-image:conic-gradient(from var(--sweep) at 50.3% 42.7%, rgba(0,0,0,0) 0deg, rgba(0,0,0,0) 250deg, #000 300deg, rgba(0,0,0,0) 350deg);animation:sweep 9s linear infinite;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute;inset:0;pointer-events:none;transform-origin:50% 30%;transform:scale({{ orbScale }});transition:{{ orbTr }}">
+          <div style="position:absolute;left:-30%;top:-30%;width:160%;height:160%;mask-image:radial-gradient(ellipse 27.5% 28.1% at 50.19% 45.44%,#000 72%,rgba(0,0,0,0) 100%);-webkit-mask-image:radial-gradient(ellipse 27.5% 28.1% at 50.19% 45.44%,#000 72%,rgba(0,0,0,0) 100%);">
+            <div style="position:absolute;left:18.75%;top:18.75%;width:62.5%;height:62.5%;opacity:{{ raysFullOp }};transform-origin:50.3% 42.7%;transform:scale({{ raysFullScale }}) rotate({{ raysFullRot }});transition:{{ raysFullTr }}">
+              <img src="art/orb11/raysFull.png" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;display:block;pointer-events:none;filter:{{ inkFilter }};transform-origin:50.3% 42.7%;animation:{{ raysAnim }};">
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute;inset:0;pointer-events:none;transform-origin:50% 30%;transform:scale({{ orbScale }});transition:{{ orbTr }}">
+          <div style="position:absolute;left:23.4%;top:15.2%;width:53.8%;height:55%;border-radius:50%;background:var(--bg,#0a0a0a);opacity:{{ ringFullOp }};transition:{{ ringTr }}"></div>
+          {{ cardEl }}
+          {{ magicEl }}
+          <img src="art/orb11/names.png" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;display:block;pointer-events:none;filter:{{ inkFilter }};opacity:{{ namesOp }};animation:{{ namesAnim }};transition:{{ namesTr }}">
+          <img src="art/orb11/ringFull.png" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;display:block;pointer-events:none;filter:{{ inkFilter }};">
+          <img src="art/orb11/ringFull.png" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;display:block;pointer-events:none;filter:{{ inkFilter }};opacity:{{ ringFullOp }};transition:{{ ringTr }}">
+        </div>
+        <div style="position:absolute;inset:0;pointer-events:none">
+          <div style="position:absolute;inset:0;transform-origin:50% 30%;transform:scale({{ orbScale }});transition:{{ orbTr }}">
+            <img src="art/orb11/stand.png" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;display:block;pointer-events:none;mask-image:linear-gradient(to bottom,#000 78%,rgba(0,0,0,0) 97%);-webkit-mask-image:linear-gradient(to bottom,#000 78%,rgba(0,0,0,0) 97%);filter:{{ inkFilter }};transform:{{ standT }};opacity:{{ handsOp }};transition:{{ standTr }}">
+            <img src="art/orb11/handL.png" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;display:block;pointer-events:none;mask-image:linear-gradient(to bottom,#000 78%,rgba(0,0,0,0) 97%);-webkit-mask-image:linear-gradient(to bottom,#000 78%,rgba(0,0,0,0) 97%);filter:{{ inkFilter }};transform:{{ handLT }};opacity:{{ handsOp }};transition:{{ handsTr }}">
+            <img src="art/orb11/handR.png" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;display:block;pointer-events:none;mask-image:linear-gradient(to bottom,#000 78%,rgba(0,0,0,0) 97%);-webkit-mask-image:linear-gradient(to bottom,#000 78%,rgba(0,0,0,0) 97%);filter:{{ inkFilter }};transform:{{ handRT }};opacity:{{ handsOp }};transition:{{ handsTr }}">
+          </div>
+        </div>
+      </div>
+      <sc-if value="{{ heroIdle }}" hint-placeholder-val="{{ true }}">
+        <div ref="{{ titleRef }}" style="font-size:clamp(32px, 10.4vw, 44px);white-space:nowrap;line-height:1;letter-spacing:.06em;padding-left:.06em;margin-top:2px">FIND YOUR SEAT</div>
+        <div style="font-size:clamp(12px, 3.4vw, 14px);letter-spacing:.3em;padding-left:.3em;margin-top:14px;opacity:.82">THE ORACLE KNOWS YOUR TABLE</div>
+      </sc-if>
+
+      <sc-if value="{{ divining }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:16px;min-height:60px;margin-top:16px">
+          <div style="font-size:15px;letter-spacing:.36em;padding-left:.36em;opacity:.85">CONSULTING THE STARS</div>
+          {{ dots }}
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ opening }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:16px;min-height:60px;margin-top:16px;animation:rise 1s ease-out 1.3s both">
+          <div style="font-size:15px;letter-spacing:.36em;padding-left:.36em;opacity:.85">THE MISTS ARE PARTING</div>
+          {{ dots }}
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ revealed }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;align-items:center;width:100%;margin-top:18px;animation:rise 1.1s cubic-bezier(.16,1,.3,1) both">
+          <div style="font-size:12px;letter-spacing:.36em;padding-left:.36em;opacity:.7">THE ORACLE HAS SPOKEN</div>
+          <div style="font-size:26px;letter-spacing:.03em;margin-top:10px">{{ sel.name }}</div>
+          <div style="font-size:13px;letter-spacing:.3em;padding-left:.3em;margin-top:18px;opacity:.7">YOU ARE SEATED AT</div>
+          <div style="font-size:clamp(34px, 11.5vw, 50px);line-height:1.02;letter-spacing:.04em;padding-left:.04em;margin-top:8px;text-wrap:balance">{{ sel.tableUpper }}</div>
+          <sc-if value="{{ sel.hasWords }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:17px;font-style:italic;letter-spacing:.14em;margin-top:12px;opacity:.82;text-wrap:balance">{{ sel.words }}</div>
+          </sc-if>
+
+          <sc-if value="{{ showMap }}" hint-placeholder-val="{{ false }}">
+            <div style="width:100%;margin-top:22px;aspect-ratio:4 / 3;border:1px dashed rgba(var(--rgb,244,242,238),.45);display:flex;align-items:center;justify-content:center;font-size:13px;letter-spacing:.28em;opacity:.6">FLOOR MAP · COMING SOON</div>
+          </sc-if>
+
+          <sc-if value="{{ hasMates }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;align-items:center;gap:12px;margin-top:24px">
+              <div style="width:36px;height:1px;background:rgba(var(--rgb,244,242,238),.45)"></div>
+              <div style="font-size:12px;letter-spacing:.32em;padding-left:.32em;opacity:.7">IN GOOD COMPANY</div>
+              <div style="width:36px;height:1px;background:rgba(var(--rgb,244,242,238),.45)"></div>
+            </div>
+            <div style="font-size:19px;line-height:1.6;margin-top:12px;opacity:.92;text-wrap:balance">{{ sel.mates }}</div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="position:relative;margin-top:30px;padding:8px;border:1px solid rgba(var(--rgb,244,242,238),.55)">
+      <div style="position:absolute;left:-8px;top:-8px;width:16px;height:16px;background:var(--ink,#f4f2ee);clip-path:polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)"></div>
+      <div style="position:absolute;right:-8px;top:-8px;width:16px;height:16px;background:var(--ink,#f4f2ee);clip-path:polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)"></div>
+      <div style="position:absolute;left:-8px;bottom:-8px;width:16px;height:16px;background:var(--ink,#f4f2ee);clip-path:polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)"></div>
+      <div style="position:absolute;right:-8px;bottom:-8px;width:16px;height:16px;background:var(--ink,#f4f2ee);clip-path:polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)"></div>
+      <div style="display:flex;align-items:center;gap:10px;border:1px solid rgba(var(--rgb,244,242,238),.3);padding:0 14px">
+        <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="{{ placeholder }}" enterkeyhint="search" inputmode="search" autocomplete="off" autocapitalize="words" spellcheck="false" aria-label="Search your name" style="flex:1;min-width:0;height:54px;background:transparent;border:0;outline:none;color:var(--ink,#f4f2ee);font-family:'Cormorant Garamond',serif;font-size:21px;letter-spacing:.06em">
+        <sc-if value="{{ hasQuery }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ clear }}" aria-label="Clear search" style="flex:none;width:44px;height:44px;margin-right:-10px;background:transparent;border:0;color:var(--ink,#f4f2ee);opacity:.7;font-family:'Cormorant Garamond',serif;font-size:28px;cursor:pointer">×</button>
+        </sc-if>
+      </div>
+    </div>
+
+    <sc-if value="{{ showResults }}" hint-placeholder-val="{{ false }}">
+      <div style="position:relative;margin-top:14px;display:flex;flex-direction:column;border-top:1px solid rgba(var(--rgb,244,242,238),.22)">
+        <sc-for list="{{ results }}" as="r" hint-placeholder-count="0">
+          <button onClick="{{ r.pick }}" style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;min-height:52px;padding:12px 6px;background:transparent;border:0;border-bottom:1px solid rgba(var(--rgb,244,242,238),.22);color:var(--ink,#f4f2ee);font-family:'Cormorant Garamond',serif;text-align:left;cursor:pointer" style-hover="background:rgba(var(--rgb,244,242,238),.07)">
+            <span style="font-size:22px;letter-spacing:.02em">{{ r.name }}</span>
+            <span style="font-size:13px;letter-spacing:.24em;opacity:.6">TAP ✦</span>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+      <div style="position:relative;margin-top:22px;text-align:center;font-size:18px;line-height:1.5;opacity:.8;text-wrap:pretty">The crystal is cloudy. Try just your first name — or find Alicia or Marcel.</div>
+    </sc-if>
+
+    <div style="position:relative;margin-top:{{ toggleGap }}px;display:flex;justify-content:center">
+      <button onClick="{{ toggleDir }}" aria-expanded="{{ dirOpen }}" style="white-space:nowrap;flex:none;display:flex;align-items:center;gap:12px;min-height:44px;padding:0 20px;background:var(--bg,#0a0a0a);border:1px solid rgba(var(--rgb,244,242,238),.4);color:var(--ink,#f4f2ee);font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.3em;cursor:pointer" style-hover="border-color:rgba(var(--rgb,244,242,238),.9)">
+        <span style="padding-left:.3em">{{ toggleLabel }}</span>
+        <span style="font-size:18px;letter-spacing:0;line-height:1;opacity:.75">{{ toggleSign }}</span>
+      </button>
+    </div>
+
+    <sc-if value="{{ dirOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:relative;margin-top:36px;display:flex;align-items:center;justify-content:center;gap:12px">
+      <div style="width:54px;height:1px;background:rgba(var(--rgb,244,242,238),.5)"></div>
+      <div style="font-size:13px;letter-spacing:.36em;padding-left:.36em">{{ directoryTitle }}</div>
+      <div style="width:54px;height:1px;background:rgba(var(--rgb,244,242,238),.5)"></div>
+    </div>
+    <sc-if value="{{ hostView }}" hint-placeholder-val="{{ false }}">
+      <div style="position:relative;margin-top:12px;text-align:center;font-size:15px;line-height:1.5;opacity:.7">Host view · notes and seat counts visible. Guests never see this.</div>
+    </sc-if>
+
+    <div style="position:relative;margin-top:22px;display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ tables }}" as="t" hint-placeholder-count="6">
+        <div style="border:1px solid rgba(var(--rgb,244,242,238),{{ t.borderA }});background-color:var(--bg,#0a0a0a);background-image:linear-gradient(rgba(var(--rgb,244,242,238),{{ t.bgA }}),rgba(var(--rgb,244,242,238),{{ t.bgA }}));display:flex;flex-direction:column">
+          <button onClick="{{ t.toggle }}" aria-expanded="{{ t.open }}" style="display:flex;align-items:center;gap:14px;min-height:60px;padding:14px 18px;background:transparent;border:0;color:var(--ink,#f4f2ee);font-family:'Cormorant Garamond',serif;text-align:left;cursor:pointer">
+            <div style="flex:none;width:46px;height:46px;border-radius:50%;border:1px solid rgba(var(--rgb,244,242,238),.55);overflow:hidden;background:var(--bg,#0a0a0a)">{{ t.thumbEl }}</div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+              <div style="font-size:21px;letter-spacing:.1em;line-height:1.15">{{ t.nameUpper }}</div>
+              <div style="font-size:12px;letter-spacing:.2em;opacity:.6">{{ t.count }}</div>
+            </div>
+            <div style="flex:none;width:22px;text-align:center;font-size:24px;line-height:1;opacity:.75">{{ t.sign }}</div>
+          </button>
+          <sc-if value="{{ t.open }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:0 18px;border-top:1px solid rgba(var(--rgb,244,242,238),.22)"></div>
+            <div style="position:relative;overflow:hidden">
+            <sc-for list="{{ t.bgStars }}" as="s" hint-placeholder-count="0">
+              <div style="position:absolute;left:{{ s.x }}%;top:{{ s.y }}%;width:{{ s.w }}px;height:{{ s.w }}px;opacity:{{ s.o }};pointer-events:none;background:var(--ink,#f4f2ee);clip-path:{{ s.cp }}"></div>
+            </sc-for>
+            <div style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:18px;padding:8px 18px 16px">
+              <sc-for list="{{ t.guests }}" as="g" hint-placeholder-count="0">
+                <sc-if value="{{ g.isName }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;gap:1px;padding:7px 0;min-width:0;grid-column:{{ g.span }};align-items:{{ g.align }};text-align:{{ g.textAlign }}">
+                  <div style="font-size:19px;line-height:1.3;opacity:{{ g.op }};overflow-wrap:anywhere">{{ g.name }}</div>
+                  <sc-if value="{{ g.showNote }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size:14px;font-style:italic;letter-spacing:.03em;opacity:.65">{{ g.note }}</div>
+                  </sc-if>
+                </div>
+                </sc-if>
+              </sc-for>
+            </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    </sc-if>
+
+    <div style="position:relative;margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:14px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:40px;height:1px;background:rgba(var(--rgb,244,242,238),.5)"></div>
+        <div style="width:9px;height:9px;background:var(--ink,#f4f2ee);clip-path:polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)"></div>
+        <div style="width:40px;height:1px;background:rgba(var(--rgb,244,242,238),.5)"></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
+        <a href="https://www.theknot.com/us/alicia-herder-and-marcel-perez-nov-2026" target="_blank" rel="noopener" style="white-space:nowrap;flex:none;display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border:1px solid rgba(var(--rgb,244,242,238),.55);color:var(--ink,#f4f2ee);text-decoration:none;font-size:13px;letter-spacing:.3em;font-family:'Cormorant Garamond',serif" style-hover="background:var(--ink,#f4f2ee);color:var(--bg,#0a0a0a)"><span style="padding-left:.3em">OUR WEBSITE</span></a>
+        <a href="https://www.theknot.com/us/alicia-herder-and-marcel-perez-nov-2026/registry" target="_blank" rel="noopener" style="white-space:nowrap;flex:none;display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border:1px solid rgba(var(--rgb,244,242,238),.55);color:var(--ink,#f4f2ee);text-decoration:none;font-size:13px;letter-spacing:.3em;font-family:'Cormorant Garamond',serif" style-hover="background:var(--ink,#f4f2ee);color:var(--bg,#0a0a0a)"><span style="padding-left:.3em">REGISTRY</span></a>
+      </div>
+    </div>
+
+    <div style="position:relative;margin-top:36px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
+      <button onClick="{{ footerTap }}" aria-label="Star" style="width:44px;height:44px;padding:0;background:transparent;border:0;display:flex;align-items:center;justify-content:center;cursor:default">
+        <span style="display:block;width:12px;height:12px;background:var(--ink,#f4f2ee);clip-path:polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)"></span>
+      </button>
+      <div style="font-size:13px;letter-spacing:.26em;padding-left:.26em;opacity:.6">MARIGNY OPERA HOUSE · 11.08.26</div>
+    </div>
+  </div>
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:420,&quot;height&quot;:900},&quot;musicEnabled&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;revealScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.6,&quot;min&quot;:1.2,&quot;max&quot;:1.9,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;},&quot;divineMs&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2600,&quot;min&quot;:0,&quot;max&quot;:3500,&quot;step&quot;:100,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;starCount&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2.5,&quot;step&quot;:0.25,&quot;tsType&quot;:&quot;number&quot;},&quot;showMapSlot&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;hostView&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const RAW = `Ball State 48"
+Grant · Jeffrey · Marissa Neel · Mike Fisch · Sarah Donaldson
+Ball State 60"
+Aaron Beal · Heidi · Koley Dallas · Michael G · Molly · Sarah Paradise · Talley Gale · Zach Adler
+Fam Jam 72"
+Adamma Ebo-Norris · Adanne Ebo-Davis · Amie Trang · Christian Merryfield · Izuora Ebo-Davis · Jio Cerrito · John Clifton · Kelly Urban · Marcus Norris · Mel Kan · Rashad Davis
+FS 01 8ft
+Chloe + Leo · Derek Davis · Elise Lockwood · Fabio - V · Glorie - V · Ian Muller · Johnny · Kevin Rushton · Lyanne ✰
+FS 02 8ft
+Anna Dawson · Bryant · CJ Irvine · Emily Veno · Kathleen Fennerty · Matthew Hook · Melanie Somoano · Stephen Skolnick
+FS 03 8ft
+Alexander Tang · Amanda Hannon · Daniel Na · Froyland Remond · Julia · Pat Hannon · Quincy · Sejohn
+FS 04 8ft
+Ceci Garcia-Remond · Evelyn · Flaminia Avantifiori · Hannah · Isa Rodriguez · Izzy · Jorge Harrison · Tessa
+FS 05 8ft
+B-Money · Matthew Barnette · Nick Sollecito · Richard Chavarriaga · Robbie · Steven Anderson
+Grandpa 72"
+Carrie Zuckerman · Charlotte · John Herder · Hunter · Kyle Herder · Lē · Leon · Lisa · Lyndsey · Pat Sloo
+LA 72"
+Aaron Br · Adriana · Anna Salinas - V · Daniel Lafrentz · Fior · Jordan Chini · Kathryn Lafrentz · Lucas · Mia Farmer · Sarah Dorrian - gluten free · Sarah Nixon
+Miami 72"
+Ashley · Jordan Mazaira · Kenyo · Malu + Benji · Michael Alan · Rafita · Sarah Markstrom · Teddy · Zhen-Hua Wang
+Mom 60"
+Annette · Carol · Chris · Gloria · Leonard · Linda · Phil · Charlie Levin
+Mom+Dad 60"
+Paulo Pérez · Juan Carlos Rubiera · Patricia Rubiera · Marleni · Alexandra Rider · Rosie Alan
+Primos 60"
+Alexis · Charlie Sachs · Elijah · Gwen · Laura · Luciano · Tommy · Vyvian Figueredo
+Table 14
+Alicia · Marcel
+Terra 72"
+Audrey McPherson · Chaz · David Vatran · Emily Meyer · Hallie McPherson · Lauren · Mallory · Michael Keck · Mike Bobrinskoy · Tammy Keck · Terra Keck-Bobrinskoy`;
+
+// Guest-facing tarot table names
+// Tarot art + the three words printed on each card
+const CARDS = {
+  'Wheel of Fortune': ['wheel', 'destiny · fate · change'],
+  'Ace of Cups': ['cupsAce', 'success · abundance · divine blessing'],
+  'The Magician': ['magician', 'potential · manifestation · power'],
+  'Judgement': ['judgement', 'rebirth · inner calling · absolution'],
+  'The High Priestess': ['priestess', 'intuition · divine feminine · knowledge'],
+  'Four of Wands': ['wands4', 'celebration · joy · harmony'],
+  'The Fool': ['fool', 'beginnings · spontaneity · free spirit'],
+  'The Sun': ['sun', 'vitality · happiness · affection'],
+  'The World': ['world', 'completion · integration · accomplishment'],
+  'Two of Cups': ['cups2', 'unity · love · harmony'],
+  'The Star': ['star', 'hope · faith · purpose'],
+  'The Lovers': ['lovers', 'a meaningful relationship · a perfect match']
+};
+// Framing inside the ball: [focus x, focus y, share of art width the circle shows]
+const FRAME = {
+  judgement: [.5, .5, .86], priestess: [.46, .5, 1], wands4: [.451, .5, .92], magician: [.47, .5, .97],
+  fool: [.51, .47, .92], lovers: [.462, .5, .92], wheel: [.47, .5, .94], star: [.49, .5, 1.16],
+  world: [.471, .5, 1.05], sun: [.505, .495, .84], cups2: [.469, .52, .92], cupsAce: [.468, .52, .88]
+};
+const DISPLAY = {
+  'Ball State 48"': 'Wheel of Fortune', 'Ball State 60"': 'Ace of Cups', 'Fam Jam 72"': 'The Magician',
+  'FS 01 8ft': 'Judgement I', 'FS 02 8ft': 'Judgement II', 'FS 03 8ft': 'Judgement III', 'FS 04 8ft': 'Judgement IV', 'FS 05 8ft': 'Judgement V',
+  'Grandpa 72"': 'The High Priestess', 'LA 72"': 'Four of Wands', 'Miami 72"': 'The Fool', 'Mom 60"': 'The Sun', 'Mom+Dad 60"': 'The World',
+  'Primos 60"': 'Two of Cups', 'Table 14': 'The Lovers', 'Terra 72"': 'The Star'
+};
+const CAP = { 'Ball State 48"': 6, 'FS 05 8ft': 9, 'Grandpa 72"': 12, 'Miami 72"': 12, 'Mom+Dad 60"': 8 };
+
+const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9+ ]/g, ' ').replace(/\s+/g, ' ').trim();
+
+function parse() {
+  const lines = RAW.split('\n');
+  let tables = [];
+  for (let i = 0; i < lines.length; i += 2) {
+    const key = lines[i].trim();
+    const guests = lines[i + 1].split('·').map(raw => {
+      raw = raw.trim();
+      let name = raw, note = '';
+      const m = raw.match(/^(.*?)\s+-\s+(.+)$/);
+      if (m) { name = m[1]; note = m[2] === 'V' ? 'vegetarian' : m[2]; }
+      if (/✰/.test(name)) { note = (note ? note + ', ' : '') + '✰'; name = name.replace(/\s*✰\s*/, ''); }
+      return { name, note, n: norm(name.replace(/\s+[A-Z][a-z]?$/, '')) };
+    });
+    tables.push({ key, display: DISPLAY[key] || key, cap: CAP[key] || guests.length, guests });
+  }
+  // FS 01–05 merge into one Judgement super table
+  const fs = tables.filter(t => /^FS 0\d/.test(t.key));
+  if (fs.length) {
+    const merged = { key: 'FS 01–05', display: 'Judgement', cap: fs.reduce((n, t) => n + t.cap, 0), guests: fs.flatMap(t => t.guests) };
+    const at = tables.indexOf(fs[0]);
+    tables = tables.filter(t => !fs.includes(t));
+    tables.splice(at, 0, merged);
+  }
+  // Head table first, rest in given order
+  tables.sort((a, b) => (b.key === 'Table 14') - (a.key === 'Table 14'));
+  return tables;
+}
+const TABLES = parse();
+
+// Guest-facing names: first name only; duplicates get the shortest unique last-name prefix
+(function shortNames() {
+  const all = TABLES.flatMap(t => t.guests);
+  const KEEP2 = /^(uncle|aunt|auntie|baby|tia|tio)$/i;
+  for (const g of all) {
+    g.full = g.name;
+    const w = g.name.split(/\s+/);
+    if (/\+|'s\b/.test(g.name) || w.length === 1) { g.first = g.name; g.last = ''; }
+    else if (KEEP2.test(w[0]) || /^juan carlos\b/i.test(g.name)) { g.first = w.slice(0, 2).join(' '); g.last = w.slice(2).join(' '); }
+    else { g.first = w[0]; g.last = w.slice(1).join(' '); }
+  }
+  // Guests who go by a shorter first name — grouped with others of that name so initials kick in
+  const FIRST_AS = { 'Melanie Somoano': 'Mel' };
+  for (const g of all) if (FIRST_AS[g.full]) g.first = FIRST_AS[g.full];
+  const SAME = { stephen: 'steven' };
+  const groups = {};
+  for (const g of all) { const k = g.first.toLowerCase(); (groups[SAME[k] || k] ||= []).push(g); }
+  for (const grp of Object.values(groups)) {
+    if (grp.length < 2) { grp[0].name = grp[0].first; continue; }
+    const withLast = grp.filter(g => g.last);
+    for (const g of grp) {
+      if (!g.last) { g.name = g.first; continue; }
+      let len = 1;
+      const others = withLast.filter(o => o !== g).map(o => o.last.toLowerCase());
+      while (len < g.last.length && others.some(o => o.slice(0, len) === g.last.slice(0, len).toLowerCase())) len++;
+      g.name = `${g.first} ${g.last.slice(0, len)}.`;
+    }
+  }
+})();
+// Guests who go by a different name (search still finds their full name)
+const GOES_BY = { 'Alexander Tang': 'Tang', 'Zhen-Hua Wang': 'Zhen' };
+// Extra words a guest might search for
+const ALSO_FOUND_BY = { 'Rafita': 'rafael campo', 'Vyvian Figueredo': 'vyvy', 'Charlotte': 'lottie' };
+TABLES.forEach(t => t.guests.forEach(g => { if (GOES_BY[g.full]) g.name = GOES_BY[g.full]; if (ALSO_FOUND_BY[g.full]) g.n += ' ' + ALSO_FOUND_BY[g.full]; }));
+
+// Nickname families — searching any form finds all of them
+const NICK = [
+  ['mike', 'michael', 'mikey'], ['matt', 'matthew'], ['steve', 'steven', 'stephen'], ['dan', 'daniel', 'danny'],
+  ['alex', 'alexander', 'alexis'], ['pat', 'patrick', 'patricia'], ['kate', 'kathryn', 'kathleen', 'kathy'],
+  ['jeff', 'jeffrey'], ['rich', 'richard', 'rick'], ['rob', 'robbie', 'robert', 'bob'], ['nick', 'nicholas'],
+  ['chris', 'christian', 'christopher'], ['zach', 'zachary'], ['izzy', 'isa', 'isabel', 'isabella'],
+  ['charlie', 'charles', 'chaz'], ['benji', 'benjamin', 'ben'], ['ceci', 'cecilia'], ['teddy', 'ted', 'theodore']
+];
+function nickWords(q) {
+  if (q.length < 3 || /\s/.test(q)) return null;
+  const hit = NICK.filter(fam => fam.some(w => w.startsWith(q)));
+  return hit.length ? new Set(hit.flat()) : null;
+}
+const SHAPES = {
+  star4: 'polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)',
+  sparkle: 'polygon(50% 0,53.5% 46.5%,100% 50%,53.5% 53.5%,50% 100%,46.5% 53.5%,0 50%,46.5% 46.5%)',
+  star8: 'polygon(50% 0,58% 32%,85% 15%,68% 42%,100% 50%,68% 58%,85% 85%,58% 68%,50% 100%,42% 68%,15% 85%,32% 58%,0 50%,32% 42%,15% 15%,42% 32%)',
+  star5: 'polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)',
+  dot: 'circle(38% at 50% 50%)'
+};
+const CREAM_MIX = ['star4', 'star4', 'sparkle', 'sparkle', 'star8', 'star5', 'dot', 'dot'];
+// Dark keeps the invite's 4-point star; cream gets a mixed, bolder sky
+function flavor(list, dark, salt) {
+  return list.map((s, i) => {
+    if (dark) return { ...s, cp: SHAPES.star4 };
+    let h = ((i + 1) * 2654435761 + salt * 97) >>> 0;
+    const kind = CREAM_MIX[h % CREAM_MIX.length];
+    const scale = kind === 'dot' ? .55 : kind === 'sparkle' ? 1.45 : kind === 'star8' ? 1.25 : 1.15;
+    return { ...s, cp: SHAPES[kind], w: Math.max(3, Math.round(s.w * scale)), o: Math.min(1, +s.o * 1.75 + .08).toFixed(2) };
+  });
+}
+const GUESTS = TABLES.flatMap(t => t.guests.map(g => ({ ...g, table: t })));
+
+class Component extends DCLogic {
+  state = { query: '', sel: null, phase: 'idle', taps: 0, host: false, open: {}, dir: false };
+  revealRef = React.createRef();
+  audioRef = React.createRef();
+  // Music: loops from 40s. Browsers block sound until a tap, so it starts on the first interaction.
+  setupMusic() {
+    // One shared player per page — survives remounts so two copies can never play over each other
+    document.querySelectorAll('audio[src*="avatars-love"]').forEach(el => { el.pause(); el.remove(); });
+    if (!window.__amSong) { window.__amSong = new Audio('audio/avatars-love.mp3'); window.__amSong.preload = 'auto'; }
+    const a = window.__amSong;
+    this.audio = a;
+    if (window.__amSongTeardown) window.__amSongTeardown();
+    const START = 40;
+    let pref = 'on';
+    try { pref = localStorage.getItem('am-seat-music') || 'on'; } catch (e) {}
+    this.wantMusic = pref !== 'off' && (this.props.musicEnabled ?? true);
+    const seek = () => { try { if (a.currentTime < START) a.currentTime = START; } catch (e) {} };
+    a.addEventListener('loadedmetadata', seek);
+    const onEnded = () => { a.currentTime = START; a.play().catch(() => {}); };
+    a.addEventListener('ended', onEnded);
+    const onPlay = () => this.setState({ musicPlaying: true });
+    const onPause = () => this.setState({ musicPlaying: false });
+    a.addEventListener('play', onPlay); a.addEventListener('pause', onPause);
+    const kick = (e) => {
+      if (e && e.target && e.target.closest && e.target.closest('[data-music-btn]')) return;
+      if (!this.wantMusic || !a.paused) return;
+      seek(); a.play().then(unbind).catch(() => {});
+    };
+    const evs = ['pointerdown', 'keydown', 'touchstart'];
+    const unbind = () => evs.forEach(e => window.removeEventListener(e, kick, true));
+    evs.forEach(e => window.addEventListener(e, kick, true));
+    this.setState({ musicWanted: this.wantMusic });
+    if (this.wantMusic) { seek(); a.play().then(unbind).catch(() => {}); }
+    this.unbindMusic = unbind;
+    window.__amSongTeardown = () => { unbind(); a.removeEventListener('ended', onEnded); a.removeEventListener('loadedmetadata', seek); a.removeEventListener('play', onPlay); a.removeEventListener('pause', onPause); };
+    this.setState({ musicPlaying: !a.paused });
+    this.teardownMusic = () => { unbind(); a.pause(); a.removeEventListener('ended', onEnded); a.removeEventListener('loadedmetadata', seek); a.removeEventListener('play', onPlay); a.removeEventListener('pause', onPause); };
+  }
+  toggleMusic = (e) => {
+    if (e) e.stopPropagation();
+    const a = this.audio;
+    if (!a) return;
+    if (this.unbindMusic) this.unbindMusic();
+    const turnOn = a.paused;
+    this.wantMusic = turnOn;
+    try { localStorage.setItem('am-seat-music', turnOn ? 'on' : 'off'); } catch (err) {}
+    if (turnOn) { if (a.currentTime < 40) a.currentTime = 40; a.play().catch(() => {}); } else a.pause();
+    this.setState({ musicWanted: turnOn });
+  };
+  headRef = React.createRef(); ballRef = React.createRef(); namesRef = React.createRef(); titleRef = React.createRef();
+
+  // Storyboard mode: freeze the reveal at a phase + time (used by Divination Keyframes)
+  freezeStory() {
+    const { storyPhase, storyAt = 0, storyGuest = 'Alicia' } = this.props;
+    const g = GUESTS.find(x => x.name === storyGuest) || GUESTS[0];
+    // wait until the phase's CSS transitions actually exist, then pin every animation to storyAt
+    const freeze = () => {
+      const t0 = performance.now();
+      const tick = () => {
+        const root = this.headRef.current;
+        if (!root || !root.getAnimations) return;
+        const all = root.getAnimations({ subtree: true });
+        const transitions = all.filter(a => typeof CSSTransition !== 'undefined' && a instanceof CSSTransition);
+        const need = storyPhase === 'opening' || storyPhase === 'revealed' ? 6 : 0;
+        if (transitions.length < need && performance.now() - t0 < 1500) { requestAnimationFrame(tick); return; }
+        all.forEach(a => { a.pause(); a.currentTime = storyAt; });
+      };
+      requestAnimationFrame(() => requestAnimationFrame(tick));
+    };
+    if (storyPhase === 'opening' || storyPhase === 'revealed') {
+      // pass through divining so every layer exists before the transitions start
+      this.setState({ sel: g, query: '', phase: 'divining' }, () => setTimeout(() => this.setState({ phase: storyPhase }, freeze), 120));
+    } else {
+      this.setState({ sel: storyPhase === 'idle' ? null : g, query: '', phase: storyPhase }, freeze);
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.storyPhase) { this.measure(); this.freezeStory(); return; }
+    this.setupMusic();
+    this.measure();
+    this.onResize = () => this.measure();
+    window.addEventListener('resize', this.onResize);
+    if (document.fonts) document.fonts.ready.then(this.measure);
+    if (window.ResizeObserver) {
+      this.ro = new ResizeObserver(() => this.measure());
+      [this.headRef.current, this.ballRef.current].forEach(el => el && this.ro.observe(el));
+    }
+    if (/host/.test(location.hash) || /[?&]host\b/.test(location.search)) this.setState({ host: true });
+  }
+  componentDidUpdate(prev) {
+    if (prev.musicEnabled !== this.props.musicEnabled && this.audio) {
+      this.wantMusic = !!this.props.musicEnabled;
+      if (!this.wantMusic) this.audio.pause();
+    }
+  }
+  componentWillUnmount() { clearTimeout(this.t); this.teardownMusic && this.teardownMusic(); window.removeEventListener('resize', this.onResize); if (this.ro) this.ro.disconnect(); }
+
+  // Swirling mist inside the ball + sparkles orbiting it during the divination
+  magic(phase, dark) {
+    const ink = dark ? '244,242,238' : '20,19,15';
+    const div = phase === 'divining', opening = phase === 'opening';
+    const live = div || opening;
+    const e = React.createElement;
+    const mistLayer = (key, anim, grad) => e('div', { key, style: { position: 'absolute', left: '-25%', top: '-25%', width: '150%', height: '150%', background: grad, filter: 'blur(7px)', animation: anim } });
+    const mist = e('div', { key: 'mist', style: {
+        position: 'absolute', left: '24.6%', top: '16.4%', width: '51.4%', height: '52.6%', borderRadius: '50%', overflow: 'hidden', pointerEvents: 'none',
+        opacity: div ? .95 : 0, transform: opening ? 'scale(1.15)' : 'scale(1)',
+        transition: div ? 'opacity 1.2s ease' : 'opacity 1.6s ease .5s, transform 2.2s cubic-bezier(.16,1,.3,1)' } },
+      mistLayer('a', live ? 'mist 7s linear infinite' : 'none', `conic-gradient(from 0deg, rgba(${ink},0), rgba(${ink},.22) 12%, rgba(${ink},0) 28%, rgba(${ink},.14) 48%, rgba(${ink},0) 64%, rgba(${ink},.26) 82%, rgba(${ink},0))`),
+      mistLayer('b', live ? 'spinRev 11s linear infinite' : 'none', `radial-gradient(circle at 35% 40%, rgba(${ink},.28), rgba(${ink},0) 38%), radial-gradient(circle at 68% 62%, rgba(${ink},.2), rgba(${ink},0) 42%)`));
+    const N = 11, stars = [];
+    for (let i = 0; i < N; i++) {
+      const a = (i / N) * Math.PI * 2 + (i % 3) * .35, r = 33 + (i * 37 % 11), s = 5 + (i * 5 % 7);
+      stars.push(e('span', { key: i, style: { position: 'absolute', left: (50 + Math.cos(a) * r) + '%', top: (50 + Math.sin(a) * r) + '%', width: s, height: s, marginLeft: -s / 2, marginTop: -s / 2,
+        background: `rgb(${ink})`, clipPath: 'polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)',
+        animation: live ? `twinkle ${1.4 + (i % 4) * .35}s ease-in-out ${(i * .23) % 1.4}s infinite` : 'none' } }));
+    }
+    const orbit = e('div', { key: 'orbit', style: { position: 'absolute', left: '12%', top: '3.85%', width: '76%', aspectRatio: '1 / 1', pointerEvents: 'none',
+        opacity: live ? 1 : 0, transform: opening ? 'scale(1.35)' : 'scale(1)',
+        transition: opening ? 'opacity 1.4s ease 1.2s, transform 2.4s cubic-bezier(.16,1,.3,1)' : 'opacity .9s ease, transform 1s ease' } },
+      e('div', { style: { position: 'absolute', inset: 0, animation: live ? 'spin 14s linear infinite' : 'none' } }, stars));
+    return [mist, orbit];
+  }
+
+  // Returning to idle: fade the ball out, remount it fresh in its resting pose, fade back in (no reverse playback)
+  // Returning to idle plays the reveal in reverse, with its own clean ordering
+  backToIdle() {
+    clearTimeout(this.t); clearTimeout(this.rt);
+    if (this.state.phase === 'idle' && !this.state.sel) return;
+    const was = this.state.sel;
+    this.setState({ phase: 'idle', sel: null, rewind: true, rewindSel: was });
+    this.rt = setTimeout(() => this.setState({ rewind: false, rewindSel: null }), 2700);
+  }
+
+  pick(g) {
+    clearTimeout(this.t); clearTimeout(this.rt); if (this.state.rewind) this.setState({ rewind: false, rewindSel: null });
+    const ms = this.props.divineMs ?? 2600;
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    this.setState({ sel: g, query: '', phase: ms > 0 ? 'divining' : 'revealed' }, () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    const pre = CARDS[g.table.display];
+    if (pre) { const dk = (this.props.colorway ?? 'White on black') === 'White on black'; new Image().src = 'art/cards/' + pre[0] + (dk ? '' : '-dark') + '.png'; }
+    const OPEN = 2600;
+    if (ms > 0) this.t = setTimeout(() => {
+      this.setState({ phase: 'opening' });
+      this.t = setTimeout(() => this.setState({ phase: 'revealed' }), OPEN);
+    }, ms);
+  }
+
+  // Scatter around the crystal ball, measured from the real layout so stars never touch the art or type
+  halo() {
+    const b = this.state.box;
+    if (!b) return [];
+    let t = 0x3c9d;
+    const rnd = () => { t = (t * 1103515245 + 12345) & 0x7fffffff; return t / 0x7fffffff; };
+    const out = [];
+    const n = Math.round(18 * (this.props.starCount ?? 1));
+    const y0 = b.namesBottom + 14, y1 = b.titleTop - 16;
+    const cx = (b.ballL + b.ballR) / 2, half = (b.ballR - b.ballL) / 2;
+    let guard = 0;
+    while (out.length < n && guard++ < 800) {
+      const w = Math.round(4 + rnd() * 6);
+      const x = 4 + rnd() * (b.width - 8 - w), y = y0 + rnd() * (y1 - y0 - w);
+      if (x + w > b.ballL - 6 && x < b.ballR + 6) continue;
+      if (out.some(o => Math.hypot(o.x - x, o.y - y) < 30)) continue;
+      const near = Math.max(0, 1 - (Math.abs(x + w / 2 - cx) - half) / (b.width / 2 - half));
+      out.push({ x: Math.round(x), y: Math.round(y), w: Math.round(w + near * 4), o: (.3 + near * .45 + rnd() * .2).toFixed(2) });
+    }
+    return out;
+  }
+  measure = () => {
+    const h = this.headRef.current, ball = this.ballRef.current, nm = this.namesRef.current, ti = this.titleRef.current;
+    if (!h || !ball || !nm || !ti) return;
+    const H = h.getBoundingClientRect(), B = ball.getBoundingClientRect(), N = nm.getBoundingClientRect(), T = ti.getBoundingClientRect();
+    const box = { width: Math.round(H.width), ballL: Math.round(B.left - H.left), ballR: Math.round(B.right - H.left), namesBottom: Math.round(N.bottom - H.top), titleTop: Math.round(T.top - H.top) };
+    const p = this.state.box;
+    if (!p || Object.keys(box).some(k => p[k] !== box[k])) this.setState({ box });
+  };
+  // Stars live only in the side gutters (outside the content column), never beside a name
+  stars() {
+    let t = 0x7a31;
+    const rnd = () => { t = (t * 1103515245 + 12345) & 0x7fffffff; return t / 0x7fffffff; };
+    const n = Math.round(44 * (this.props.starCount ?? 1));
+    const out = [];
+    for (let i = 0; i < n; i++) {
+      const w = Math.round(4 + rnd() * 7);
+      const off = Math.round(1 + rnd() * (19 - w)) + 'px';
+      const left = i % 2 === 0;
+      out.push({
+        l: left ? off : 'auto',
+        r: left ? 'auto' : off,
+        y: Math.round(40 + (i / n) * 2600 + rnd() * 50),
+        w,
+        o: (.3 + rnd() * .6).toFixed(2)
+      });
+    }
+    return out;
+  }
+
+  renderVals() {
+    const { query, sel, phase } = this.state;
+    const host = this.state.host || !!this.props.hostView;
+    const dark = (this.props.colorway ?? 'White on black') === 'White on black';
+    const q = norm(query);
+    const typing = q.length > 0;
+    let results = [];
+    if (typing) {
+      const fam = nickWords(q);
+      // Rank: exact name > name starts with it > first name starts with it > any word > nickname > anywhere; closer length wins ties
+      const score = g => {
+        const words = g.n.split(' '), shown = norm(g.name.replace(/\.$/, '')), first = words[0];
+        if (shown === q || first === q || g.n === q) return 0;
+        if (words.some(w => w === q)) return 1;
+        if (shown.startsWith(q)) return 2;
+        if (first.startsWith(q)) return 3;
+        if (words.some(w => w.startsWith(q)) || g.n.startsWith(q)) return 4;
+        if (fam && words.some(w => fam.has(w))) return 5;
+        if (q.length > 2 && g.n.includes(q)) return 6;
+        return -1;
+      };
+      results = GUESTS.map(g => ({ g, s: score(g) })).filter(x => x.s >= 0)
+        .sort((a, b) => a.s - b.s || (a.g.name.length - b.g.name.length) || a.g.name.localeCompare(b.g.name))
+        .map(x => x.g).slice(0, 10).map(g => ({ name: g.name, pick: () => this.pick(g) }));
+    }
+    const selTable = sel && phase === 'revealed' ? sel.table : null;
+
+    const orb = React.createElement('div', { style: { position: 'relative', width: 150, height: 150, display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+      React.createElement('div', { style: { position: 'absolute', inset: 0, borderRadius: '50%', background: `radial-gradient(circle, rgba(${dark ? '244,242,238' : '20,19,15'},.5) 0%, rgba(0,0,0,0) 65%)`, animation: 'glow 1.6s ease-in-out infinite' } }),
+      React.createElement('img', { src: dark ? 'art/crystal.png' : 'art/crystal-dark.png', alt: '', style: { position: 'relative', width: 150, animation: 'orb 1.6s ease-in-out infinite' } })
+    );
+    const dots = React.createElement('div', { style: { display: 'flex', gap: 10 } },
+      [0, 1, 2].map(i => React.createElement('span', { key: i, style: { width: 9, height: 9, background: 'var(--ink,#f4f2ee)', clipPath: 'polygon(50% 0,57% 43%,100% 50%,57% 57%,50% 100%,43% 57%,0 50%,43% 43%)', animation: `twinkle 1.2s ${i * .2}s ease-in-out infinite` } }))
+    );
+
+    return {
+      themeVars: dark ? { '--bg': '#0a0a0a', '--ink': '#f4f2ee', '--rgb': '244,242,238' } : { '--bg': '#f3f0e8', '--ink': '#14130f', '--rgb': '20,19,15' },
+      isDark: dark,
+      showMusicBtn: !this.props.storyPhase,
+      toggleMusic: this.toggleMusic,
+      musicOn: !!this.state.musicPlaying,
+      musicOff: !this.state.musicPlaying,
+      musicIconOp: this.state.musicPlaying ? '1' : '.55',
+      musicLabel: this.state.musicPlaying ? 'Turn music off' : 'Turn music on',
+      isLight: !dark,
+      stars: flavor(this.stars(), dark, 1),
+      haloStars: flavor(this.halo(), dark, 2),
+      headRef: this.headRef, ballRef: this.ballRef, namesRef: this.namesRef, titleRef: this.titleRef,
+      query,
+      onQuery: e => { const v = e.target.value; if (v && this.state.phase !== 'idle') { this.setState({ query: v }); this.backToIdle(); } else this.setState({ query: v }); },
+      clear: () => { this.setState({ query: '' }); this.backToIdle(); },
+      ballKey: 'orb' + (this.state.orbGen || 0),
+      orbFade: this.state.orbHidden ? '0' : '1',
+      hasQuery: query.length > 0,
+      results,
+      showResults: typing && results.length > 0,
+      noResults: typing && q.length > 1 && results.length === 0,
+      hasSelection: !!sel,
+      divining: phase === 'divining',
+      heroIdle: phase === 'idle' || !sel,
+      placeholder: sel && phase === 'revealed' ? 'SEARCH ANOTHER NAME' : 'TYPE YOUR NAME',
+      ...(() => {
+        const open = !!sel && (phase === 'opening' || phase === 'revealed');
+        const cardSel = sel || this.state.rewindSel;
+        const card = cardSel && CARDS[cardSel.table.display];
+        return {
+          inkFilter: dark ? 'none' : 'brightness(0) opacity(.9)',
+          orbScale: open ? String(this.props.revealScale ?? 1.6) : phase === 'divining' ? '1.04' : '1',
+          handLT: open ? 'translate(-72%, -4%) rotate(-12deg)' : 'none',
+          handRT: open ? 'translate(72%, -4%) rotate(12deg)' : 'none',
+          standT: open ? 'translateY(18%) scale(.92)' : 'none',
+          handsOp: open ? '0' : '1',
+          namesOp: open ? '0' : '1',
+          ringFullOp: open ? '1' : '0',
+          orbRoom: open ? '34px' : '0px',
+          ...(this.state.rewind ? {
+            handsTr: 'transform 1.5s cubic-bezier(.45,0,.35,1) .5s, opacity .6s ease .5s',
+            standTr: 'transform 1.2s cubic-bezier(.45,0,.35,1) .75s, opacity .6s ease .75s',
+            raysTr: 'opacity .8s ease 1.7s',
+            ringTr: 'opacity .4s ease 2s',
+            namesTr: 'opacity .8s ease 1.2s',
+            orbTr: 'transform 1.6s cubic-bezier(.65,0,.35,1) .15s'
+          } : {
+            handsTr: 'transform 1.9s cubic-bezier(.55,0,.35,1) .45s, opacity 1.1s cubic-bezier(.4,0,1,1) .85s',
+            standTr: 'transform 1.4s cubic-bezier(.55,0,.35,1) .45s, opacity .7s ease .45s',
+            raysTr: 'opacity .5s ease',
+            ringTr: 'opacity .6s ease 1.05s',
+            namesTr: 'opacity 1.1s ease .2s',
+            orbTr: 'transform 2s cubic-bezier(.65,0,.35,1)'
+          }),
+          orbTop: open ? '30px' : '10px',
+          ballFloat: (phase === 'divining' || phase === 'opening') ? 'float 3.2s ease-in-out infinite' : 'none',
+          raysAnim: (phase === 'divining' || phase === 'opening') ? 'raysBreathe 2.6s ease-in-out infinite' : 'raysIdle 11s ease-in-out infinite',
+          raysOp: open ? '0' : '1',
+          raysFullOp: open ? '1' : '0',
+          raysFullScale: open ? '.86' : '.72',
+          raysFullRot: open ? '0deg' : '-12deg',
+          raysFullTr: open ? 'opacity 1.1s ease 1.75s, transform 1.8s cubic-bezier(.16,1,.3,1) 1.6s' : 'opacity .4s ease, transform .4s ease',
+          namesAnim: phase === 'divining' ? 'shimmer 1.6s ease-in-out infinite' : 'none',
+          magicEl: this.magic(phase, dark),
+          cardEl: card ? React.createElement('div', { key: 'card-' + card[0], style: {
+              position: 'absolute', left: '24.6%', top: '16.4%', width: '51.4%', height: '52.6%', borderRadius: '50%', overflow: 'hidden',
+              opacity: open ? 1 : 0, transform: open ? 'scale(1)' : 'scale(1.18)', transformOrigin: '50% 50%',
+              transition: this.state.rewind ? 'opacity .6s ease, transform .9s ease' : 'opacity 1.5s ease 1.1s, transform 2.4s cubic-bezier(.16,1,.3,1) .9s', pointerEvents: 'none' } },
+            (() => { const [fx, fy, z] = FRAME[card[0]] || [.5, .5, .88]; const w = 100 / z, h = w * 980 / 900;
+              return React.createElement('img', { src: 'art/cards/' + card[0] + (dark ? '' : '-dark') + '.png', alt: cardSel.table.display + ' card art',
+                style: { position: 'absolute', width: w + '%', height: h + '%', left: (50 - fx * w) + '%', top: (50 - fy * h) + '%', maxWidth: 'none', display: 'block' } }); })()) : null
+        };
+      })(),
+      heroGlow: (phase === 'divining' || phase === 'opening') ? React.createElement('div', { key: 'glow', style: { position: 'absolute', left: '-18%', right: '-18%', top: '-14%', height: '96%', borderRadius: '50%', pointerEvents: 'none', background: `radial-gradient(circle at 50% 46%, rgba(${dark ? '244,242,238' : '20,19,15'},.42) 0%, rgba(0,0,0,0) 58%)`, animation: 'glow 1.4s ease-in-out infinite' } }) : null,
+      revealed: phase === 'revealed',
+      opening: phase === 'opening',
+      orb, dots,
+      sel: sel ? {
+        name: sel.name,
+        tableUpper: sel.table.display.toUpperCase(),
+        words: (CARDS[sel.table.display] || [])[1] || '',
+        hasWords: !!CARDS[sel.table.display],
+        mates: sel.table.guests.filter(g => g.full !== sel.full).map(g => g.name).join(' · ')
+      } : {},
+      hasMates: !!sel && sel.table.guests.length > 1,
+      showMap: !!this.props.showMapSlot,
+      hostView: host,
+      directoryTitle: host ? 'ALL TABLES · HOST' : 'ALL TABLES',
+      dirOpen: this.state.dir || host,
+      toggleLabel: (this.state.dir || host) ? 'HIDE ALL TABLES' : 'VIEW ALL TABLES',
+      toggleSign: (this.state.dir || host) ? '−' : '+',
+      toggleGap: sel ? 28 : 40,
+      toggleDir: () => this.setState(s => ({ dir: !s.dir })),
+      tables: TABLES.map(t => {
+        const on = selTable === t;
+        const open = on || !!this.state.open[t.key];
+        return {
+          nameUpper: t.display.toUpperCase(),
+          thumbEl: CARDS[t.display] ? (() => { const k = CARDS[t.display][0]; const [fx, fy, z] = FRAME[k] || [.5, .5, .88]; const w = 100 / z, h = w * 980 / 900;
+            return React.createElement('div', { style: { position: 'relative', width: '100%', height: '100%' } },
+              React.createElement('img', { src: 'art/cards/thumb/' + k + (dark ? '' : '-dark') + '.png', alt: '', loading: 'lazy', style: { position: 'absolute', width: w + '%', height: h + '%', left: (50 - fx * w) + '%', top: (50 - fy * h) + '%', maxWidth: 'none', display: 'block' } })); })() : null,
+          count: host ? `${t.key.toUpperCase()} · ${t.guests.length} OF ${t.cap}` : `${t.guests.length} GUESTS`,
+          open,
+          sign: open ? '−' : '+',
+          toggle: () => this.setState(s => ({ open: { ...s.open, [t.key]: !open } })),
+          guests: (() => {
+            const sorted = [...t.guests].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+            let seed = [...t.key].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+            const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
+            const cell = (g, pos) => ({
+              isName: true, isStar: false,
+              name: host ? g.full : g.name, note: g.note, showNote: host && !!g.note,
+              op: on && sel && g.full === sel.full ? '1' : '.85',
+              ...(pos === 'mid' ? { span: '1 / -1', align: 'center', textAlign: 'center' }
+                : pos === 'l' ? { span: '1', align: 'flex-start', textAlign: 'left' }
+                : { span: '2', align: 'flex-end', textAlign: 'right' })
+            });
+            const out = [];
+            const pairs = Math.floor(sorted.length / 2);
+            for (let p = 0; p < pairs; p++) {
+              out.push(cell(sorted[2 * p], 'l'));
+              out.push(cell(sorted[2 * p + 1], 'r'));
+            }
+            if (sorted.length % 2) out.push(cell(sorted[sorted.length - 1], 'mid'));
+            return out;
+          })(),
+          bgStars: flavor((() => {
+            let seed = [...t.key].reduce((h, c) => (h * 131 + c.charCodeAt(0)) >>> 0, 3);
+            const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
+            const n = Math.round((4 + t.guests.length * 0.9) * (this.props.starCount ?? 1));
+            const out = [];
+            let guard = 0;
+            while (out.length < n && guard++ < n * 60) {
+              const x = 2 + rnd() * 94, y = 3 + rnd() * 92;
+              if (out.some(o => Math.hypot((o.x - x) * 1.4, (o.y - y) * (t.guests.length > 6 ? 2.4 : 1)) < 13)) continue;
+              out.push({ x: x.toFixed(1), y: y.toFixed(1), w: Math.round(3 + rnd() * 5), o: (.1 + rnd() * .18).toFixed(2) });
+            }
+            return out;
+          })(), dark, t.key.length + 3),
+          borderA: on ? '.9' : '.3',
+          bgA: on ? '.08' : '0'
+        };
+      }),
+      footerTap: () => this.setState(s => {
+        const taps = s.taps + 1;
+        return taps >= 5 ? { taps: 0, host: !s.host } : { taps };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>
