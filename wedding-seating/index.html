@@ -327,6 +327,98 @@ const DISPLAY = {
 };
 const CAP = { 'Ball State 48"': 6, 'FS 05 8ft': 9, 'Grandpa 72"': 12, 'Miami 72"': 12, 'Mom+Dad 60"': 8 };
 
+/* Artemis, who is a cat and has no table.
+   Typing her name is the one search that is not about seating, so it stays out
+   of the reveal machine entirely: teaching that a guest can have no table, no
+   card and no chair would put a special case through every branch of it for
+   one joke. This is a plain overlay built by hand, and it touches nothing.
+   To add more of her, drop files in art/artemis/ and list them here. */
+const ARTEMIS_PHOTOS = [
+  'art/artemis/artemis-1.jpg',
+  // More of her go here, one line each, after dropping the file in
+  // art/artemis/. The grid takes any number. Only one so far because the two
+  // photos on hand turned out to be the same picture at two sizes, and the
+  // same cat twice reads as a bug rather than a joke.
+];
+
+function showArtemis() {
+  if (document.getElementById('artemis-egg')) return;
+  const song = window.__amSong;
+  // Remember whether it was playing rather than whether it was wanted: coming
+  // back has to leave the page exactly as it was found, including silent.
+  const wasPlaying = !!(song && !song.paused);
+  if (song) song.pause();
+
+  if (!document.getElementById('artemis-css')) {
+    const css = document.createElement('style');
+    css.id = 'artemis-css';
+    css.textContent = `
+      #artemis-egg{position:fixed;inset:0;z-index:9999;background:#0a0a0a;
+        overflow:auto;-webkit-overflow-scrolling:touch;
+        padding:calc(env(safe-area-inset-top,0px) + 18px) 18px
+                calc(env(safe-area-inset-bottom,0px) + 28px);
+        animation:artemisIn .45s ease both;color:#f4f2ee;
+        font-family:'Cormorant Garamond',Georgia,serif;text-align:center}
+      @keyframes artemisIn{from{opacity:0}to{opacity:1}}
+      @media (prefers-reduced-motion:reduce){#artemis-egg{animation:none}}
+      #artemis-egg h2{font-size:34px;font-weight:400;letter-spacing:.18em;
+        margin:10px 0 2px;text-transform:uppercase}
+      #artemis-egg p{font-size:14px;letter-spacing:.16em;text-transform:uppercase;
+        opacity:.62;margin:0 0 22px}
+      #artemis-egg .shots{display:grid;gap:14px;max-width:460px;margin:0 auto;
+        grid-template-columns:1fr}
+      #artemis-egg img{width:100%;height:auto;display:block;border-radius:10px;
+        border:1px solid rgba(244,242,238,.18)}
+      #artemis-egg button{margin-top:26px;background:transparent;color:inherit;
+        font:inherit;font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+        border:1px solid rgba(244,242,238,.35);border-radius:8px;
+        padding:12px 22px;cursor:pointer;min-height:44px}
+      #artemis-egg button:hover{border-color:rgba(244,242,238,.7)}`;
+    document.head.appendChild(css);
+  }
+
+  const el = document.createElement('div');
+  el.id = 'artemis-egg';
+  el.setAttribute('role', 'dialog');
+  el.setAttribute('aria-modal', 'true');
+  el.setAttribute('aria-label', 'Artemis');
+  const shots = ARTEMIS_PHOTOS
+    .map(src => '<img src="' + src + '" alt="Artemis the cat" loading="lazy">').join('');
+  el.innerHTML = '<h2>Artemis</h2><p>She does not have a table. She has the whole house.</p>' +
+    '<div class="shots">' + shots + '</div>' +
+    '<button type="button">Back to the oracle</button>';
+  // A photo that 404s would leave a broken-image glyph standing in for the cat.
+  el.querySelectorAll('img').forEach(img => { img.onerror = () => img.remove(); });
+  document.body.appendChild(el);
+  const back = el.querySelector('button');
+  back.focus();
+
+  const purr = new Audio('audio/artemis-outro.mp3');
+  purr.play().catch(() => {});
+
+  // Her song has to stop when the phone goes away, for the same reason the
+  // wedding song does.
+  const onHide = () => { if (document.hidden) purr.pause(); };
+  document.addEventListener('visibilitychange', onHide);
+  window.addEventListener('pagehide', onHide);
+
+  const close = () => {
+    document.removeEventListener('visibilitychange', onHide);
+    window.removeEventListener('pagehide', onHide);
+    document.removeEventListener('keydown', onKey);
+    purr.pause();
+    purr.src = '';
+    el.remove();
+    if (wasPlaying && song) {
+      if (window.__amFadeIn) window.__amFadeIn();
+      song.play().catch(() => {});
+    }
+  };
+  const onKey = e => { if (e.key === 'Escape') close(); };
+  document.addEventListener('keydown', onKey);
+  back.addEventListener('click', close);
+}
+
 const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9+ ]/g, ' ').replace(/\s+/g, ' ').trim();
 
 function parse() {
@@ -501,6 +593,7 @@ class Component extends DCLogic {
     // beginning the song somewhere else.
     this.songStart = START;
     this.fadeIn = fadeIn;
+    window.__amFadeIn = fadeIn;
     let pref = 'on';
     try { pref = localStorage.getItem('am-seat-music') || 'on'; } catch (e) {}
     this.wantMusic = pref !== 'off' && (this.props.musicEnabled ?? true);
@@ -766,7 +859,9 @@ class Component extends DCLogic {
       haloStars: flavor(this.halo(), dark, 2),
       headRef: this.headRef, ballRef: this.ballRef, namesRef: this.namesRef, titleRef: this.titleRef,
       query,
-      onQuery: e => { const v = e.target.value; if (v && this.state.phase !== 'idle') { this.setState({ query: v }); this.backToIdle(); } else this.setState({ query: v }); },
+      onQuery: e => { const v = e.target.value;
+        if (norm(v) === 'artemis') { this.setState({ query: '' }); showArtemis(); return; }
+        if (v && this.state.phase !== 'idle') { this.setState({ query: v }); this.backToIdle(); } else this.setState({ query: v }); },
       clear: () => { this.setState({ query: '' }); this.backToIdle(); },
       ballKey: 'orb' + (this.state.orbGen || 0),
       orbFade: this.state.orbHidden ? '0' : '1',
