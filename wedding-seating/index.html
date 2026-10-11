@@ -508,6 +508,29 @@ class Component extends DCLogic {
     a.addEventListener('loadedmetadata', seek);
     const onEnded = () => { a.currentTime = START; fadeIn(); a.play().catch(() => {}); };
     a.addEventListener('ended', onEnded);
+    // A phone that locks, or an app switched away from, keeps HTML audio
+    // playing - so without this the song carries on in somebody's pocket at
+    // the actual wedding, which is the one place that is unforgivable.
+    //
+    // Only resume what we ourselves paused. Somebody who pressed the sound
+    // button off and then locked their phone must not come back to music
+    // playing again, which is what a blanket resume would do.
+    let hushed = false;
+    const onHide = () => {
+      if (document.hidden && !a.paused) { hushed = true; a.pause(); }
+    };
+    const onShow = () => {
+      if (document.hidden || !hushed) return;
+      hushed = false;
+      if (this.wantMusic) { fadeIn(); a.play().catch(() => {}); }
+    };
+    const onVisibility = () => { onHide(); onShow(); };
+    document.addEventListener('visibilitychange', onVisibility);
+    // iOS does not always reach visibilitychange when Safari is backgrounded
+    // or the tab is being put away, and pagehide is the one it does fire.
+    const onPageHide = () => { if (!a.paused) { hushed = true; a.pause(); } };
+    window.addEventListener('pagehide', onPageHide);
+
     const onPlay = () => this.setState({ musicPlaying: true });
     const onPause = () => this.setState({ musicPlaying: false });
     a.addEventListener('play', onPlay); a.addEventListener('pause', onPause);
@@ -522,9 +545,9 @@ class Component extends DCLogic {
     this.setState({ musicWanted: this.wantMusic });
     if (this.wantMusic) { seek(); fadeIn(); a.play().then(unbind).catch(() => {}); }
     this.unbindMusic = unbind;
-    window.__amSongTeardown = () => { unbind(); cancelAnimationFrame(raf); a.removeEventListener('ended', onEnded); a.removeEventListener('loadedmetadata', seek); a.removeEventListener('play', onPlay); a.removeEventListener('pause', onPause); };
+    window.__amSongTeardown = () => { unbind(); cancelAnimationFrame(raf); document.removeEventListener('visibilitychange', onVisibility); window.removeEventListener('pagehide', onPageHide); a.removeEventListener('ended', onEnded); a.removeEventListener('loadedmetadata', seek); a.removeEventListener('play', onPlay); a.removeEventListener('pause', onPause); };
     this.setState({ musicPlaying: !a.paused });
-    this.teardownMusic = () => { unbind(); cancelAnimationFrame(raf); a.pause(); a.removeEventListener('ended', onEnded); a.removeEventListener('loadedmetadata', seek); a.removeEventListener('play', onPlay); a.removeEventListener('pause', onPause); };
+    this.teardownMusic = () => { unbind(); cancelAnimationFrame(raf); a.pause(); document.removeEventListener('visibilitychange', onVisibility); window.removeEventListener('pagehide', onPageHide); a.removeEventListener('ended', onEnded); a.removeEventListener('loadedmetadata', seek); a.removeEventListener('play', onPlay); a.removeEventListener('pause', onPause); };
   }
   toggleMusic = (e) => {
     if (e) e.stopPropagation();
