@@ -438,13 +438,75 @@ class Component extends DCLogic {
     const a = window.__amSong;
     this.audio = a;
     if (window.__amSongTeardown) window.__amSongTeardown();
-    const START = 40;
+    const START = 45;
+    const FADE_MS = 2500;
+    // iPhones ignore HTMLAudioElement.volume - it is read-only there - so a
+    // volume ramp fades on a laptop and hard-starts on the phone most guests
+    // will be holding. Web Audio's gain is the one that works everywhere, with
+    // volume kept as the fallback for anything that will not give us a context.
+    // The graph is cached on window because createMediaElementSource can only
+    // ever be called once for a given element, and this player survives
+    // remounts on purpose.
+    let gain = null, noCtx = false, raf = 0;
+    const graph = () => {
+      if (window.__amSongGain) return window.__amSongGain;
+      if (noCtx) return null;
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) { noCtx = true; return null; }
+        const c = window.__amSongCtx || (window.__amSongCtx = new AC());
+        // Routing the element into a context that will not start would mute
+        // the song outright, and silence is a much worse outcome than a song
+        // that begins at full volume. So the source is only ever connected to
+        // a context already running: if it is asleep we ask it to wake, fall
+        // back to the volume ramp this time, and the next gesture gets the
+        // real fade. Browsers start it suspended until a gesture, which is
+        // exactly the case this guards.
+        if (c.state !== 'running') { c.resume().catch(() => {}); return null; }
+        const g = c.createGain();
+        g.connect(c.destination);
+        c.createMediaElementSource(a).connect(g);
+        window.__amSongGain = g;
+        return g;
+      } catch (e) { noCtx = true; return null; }
+    };
+    const fadeIn = () => {
+      const g = graph();
+      if (g) {
+        try {
+          const c = window.__amSongCtx;
+          if (c.state === 'suspended') c.resume().catch(() => {});
+          const t = c.currentTime;
+          g.gain.cancelScheduledValues(t);
+          // An exponential ramp cannot touch zero, and it is the right curve
+          // anyway: loudness is not proportional to amplitude, so a linear
+          // ramp rushes the quiet half and sounds like a jump.
+          g.gain.setValueAtTime(0.0001, t);
+          g.gain.exponentialRampToValueAtTime(1, t + FADE_MS / 1000);
+          return;
+        } catch (e) {}
+      }
+      cancelAnimationFrame(raf);
+      try { a.volume = 0; } catch (e) { return; }
+      const t0 = performance.now();
+      const step = (now) => {
+        const k = Math.min(1, (now - t0) / FADE_MS);
+        try { a.volume = k * k; } catch (e) { return; }
+        if (k < 1) raf = requestAnimationFrame(step);
+      };
+      raf = requestAnimationFrame(step);
+    };
+    // toggleMusic lives outside this method and used to carry its own copy of
+    // the number 40, so moving the start here would have left the button
+    // beginning the song somewhere else.
+    this.songStart = START;
+    this.fadeIn = fadeIn;
     let pref = 'on';
     try { pref = localStorage.getItem('am-seat-music') || 'on'; } catch (e) {}
     this.wantMusic = pref !== 'off' && (this.props.musicEnabled ?? true);
     const seek = () => { try { if (a.currentTime < START) a.currentTime = START; } catch (e) {} };
     a.addEventListener('loadedmetadata', seek);
-    const onEnded = () => { a.currentTime = START; a.play().catch(() => {}); };
+    const onEnded = () => { a.currentTime = START; fadeIn(); a.play().catch(() => {}); };
     a.addEventListener('ended', onEnded);
     const onPlay = () => this.setState({ musicPlaying: true });
     const onPause = () => this.setState({ musicPlaying: false });
@@ -452,17 +514,17 @@ class Component extends DCLogic {
     const kick = (e) => {
       if (e && e.target && e.target.closest && e.target.closest('[data-music-btn]')) return;
       if (!this.wantMusic || !a.paused) return;
-      seek(); a.play().then(unbind).catch(() => {});
+      seek(); fadeIn(); a.play().then(unbind).catch(() => {});
     };
     const evs = ['pointerdown', 'keydown', 'touchstart'];
     const unbind = () => evs.forEach(e => window.removeEventListener(e, kick, true));
     evs.forEach(e => window.addEventListener(e, kick, true));
     this.setState({ musicWanted: this.wantMusic });
-    if (this.wantMusic) { seek(); a.play().then(unbind).catch(() => {}); }
+    if (this.wantMusic) { seek(); fadeIn(); a.play().then(unbind).catch(() => {}); }
     this.unbindMusic = unbind;
-    window.__amSongTeardown = () => { unbind(); a.removeEventListener('ended', onEnded); a.removeEventListener('loadedmetadata', seek); a.removeEventListener('play', onPlay); a.removeEventListener('pause', onPause); };
+    window.__amSongTeardown = () => { unbind(); cancelAnimationFrame(raf); a.removeEventListener('ended', onEnded); a.removeEventListener('loadedmetadata', seek); a.removeEventListener('play', onPlay); a.removeEventListener('pause', onPause); };
     this.setState({ musicPlaying: !a.paused });
-    this.teardownMusic = () => { unbind(); a.pause(); a.removeEventListener('ended', onEnded); a.removeEventListener('loadedmetadata', seek); a.removeEventListener('play', onPlay); a.removeEventListener('pause', onPause); };
+    this.teardownMusic = () => { unbind(); cancelAnimationFrame(raf); a.pause(); a.removeEventListener('ended', onEnded); a.removeEventListener('loadedmetadata', seek); a.removeEventListener('play', onPlay); a.removeEventListener('pause', onPause); };
   }
   toggleMusic = (e) => {
     if (e) e.stopPropagation();
@@ -472,7 +534,12 @@ class Component extends DCLogic {
     const turnOn = a.paused;
     this.wantMusic = turnOn;
     try { localStorage.setItem('am-seat-music', turnOn ? 'on' : 'off'); } catch (err) {}
-    if (turnOn) { if (a.currentTime < 40) a.currentTime = 40; a.play().catch(() => {}); } else a.pause();
+    if (turnOn) {
+      const from = this.songStart || 45;
+      if (a.currentTime < from) a.currentTime = from;
+      if (this.fadeIn) this.fadeIn();
+      a.play().catch(() => {});
+    } else a.pause();
     this.setState({ musicWanted: turnOn });
   };
   headRef = React.createRef(); ballRef = React.createRef(); namesRef = React.createRef(); titleRef = React.createRef();
