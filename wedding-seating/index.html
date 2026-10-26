@@ -264,22 +264,20 @@
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:420,&quot;height&quot;:900},&quot;musicEnabled&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;revealScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.6,&quot;min&quot;:1.2,&quot;max&quot;:1.9,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;},&quot;divineMs&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2600,&quot;min&quot;:0,&quot;max&quot;:3500,&quot;step&quot;:100,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;starCount&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2.5,&quot;step&quot;:0.25,&quot;tsType&quot;:&quot;number&quot;},&quot;showMapSlot&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;hostView&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
-const RAW = `Ball State 48"
-Grant · Jeffrey · Marissa Neel · Mike Fisch · Sarah Donaldson
-Ball State 60"
+const RAW = `Ball State 60"
 Aaron Beal · Heidi · Koley Dallas · Michael G · Molly · Sarah Paradise · Talley Gale · Zach Adler
 Fam Jam 72"
 Adamma Ebo-Norris · Adanne Ebo-Davis · Amie Trang · Christian Merryfield · Izuora Ebo-Davis · Jio Cerrito · John Clifton · Kelly Urban · Marcus Norris · Mel Kan · Rashad Davis
 FS 01 8ft
 Chloe + Leo · Derek Davis · Elise Lockwood · Fabio - V · Glorie - V · Ian Muller · Johnny · Kevin Rushton · Lyanne ✰
 FS 02 8ft
-Anna Dawson · Bryant · CJ Irvine · Emily Veno · Kathleen Fennerty · Matthew Hook · Melanie Somoano · Stephen Skolnick
+Anna Dawson · Bryant · CJ Irvine · Emily Veno · Kathleen Fennerty · Matthew Hook · Melanie Somoano · Sarah Donaldson · Stephen Skolnick
 FS 03 8ft
 Alexander Tang · Amanda Hannon · Daniel Na · Froyland Remond · Julia · Pat Hannon · Quincy · Sejohn
 FS 04 8ft
 Ceci Garcia-Remond · Evelyn · Flaminia Avantifiori · Hannah · Isa Rodriguez · Izzy · Jorge Harrison · Tessa
 FS 05 8ft
-B-Money · Matthew Barnette · Nick Sollecito · Richard Chavarriaga · Robbie · Steven Anderson
+B-Money · Grant · Marissa Neel · Matthew Barnette · Mike Fisch · Nick Sollecito · Richard Chavarriaga · Robbie · Steven Anderson
 Grandpa 72"
 Carrie Zuckerman · Charlotte · John Herder · Hunter · Kyle Herder · Lē · Leon · Lisa · Lyndsey · Pat Sloo
 LA 72"
@@ -320,12 +318,12 @@ const FRAME = {
   world: [.471, .5, 1.05], sun: [.505, .495, .84], cups2: [.469, .52, .92], cupsAce: [.468, .52, .88]
 };
 const DISPLAY = {
-  'Ball State 48"': 'Wheel of Fortune', 'Ball State 60"': 'Ace of Cups', 'Fam Jam 72"': 'The Magician',
+  'Ball State 60"': 'Ace of Cups', 'Fam Jam 72"': 'The Magician',
   'FS 01 8ft': 'Judgement I', 'FS 02 8ft': 'Judgement II', 'FS 03 8ft': 'Judgement III', 'FS 04 8ft': 'Judgement IV', 'FS 05 8ft': 'Judgement V',
   'Grandpa 72"': 'The High Priestess', 'LA 72"': 'Four of Wands', 'Miami 72"': 'The Fool', 'Mom 60"': 'The Sun', 'Mom+Dad 60"': 'The World',
   'Primos 60"': 'Two of Cups', 'Table 14': 'The Lovers', 'Terra 72"': 'The Star'
 };
-const CAP = { 'Ball State 48"': 6, 'FS 05 8ft': 9, 'Grandpa 72"': 12, 'Miami 72"': 12, 'Mom+Dad 60"': 8 };
+const CAP = { 'FS 05 8ft': 9, 'Grandpa 72"': 12, 'Miami 72"': 12, 'Mom+Dad 60"': 8 };
 
 /* Artemis, who is a cat and has no table.
    Typing her name is the one search that is not about seating, so it stays out
